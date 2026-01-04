@@ -1,97 +1,87 @@
-import React from "react";
-import { Instagram, Mail, Phone, MapPin } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa"; // Import WhatsApp icon from react-icons
+import { Link } from "react-router-dom";
+import { Instagram, Facebook, MessageCircle } from "lucide-react";
 
-const Footer: React.FC = () => {
-  // WhatsApp link with your phone number
-  const whatsappLink = "https://wa.me/9825346592";
+const socialLinks = [
+  { icon: MessageCircle, href: "https://wa.me/919825346592", label: "WhatsApp" },
+  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
+];
 
-  // Instagram profile link
-  const instagramLink =
-    "https://www.instagram.com/bipin_mevada_architects?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="; // Replace with your actual Instagram handle
-
+export function Footer() {
   return (
-    <footer className="bg-white bg-opacity-80 text-gray-800 py-12 rounded-xl shadow-lg mx-4 my-6">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-xl font-semibold mb-4">About</h3>
-            <p className="text-gray-600">
-              Creating exceptional spaces that inspire and transform lives
-              through innovative design and architectural excellence.
+    <footer className="bg-card/80 backdrop-blur-sm border-t border-border relative z-10">
+      <div className="container py-12 md:py-16">
+        <div className="grid md:grid-cols-3 gap-10 md:gap-8">
+          {/* Brand */}
+          <div className="space-y-4">
+            <Link to="/" className="font-serif text-xl md:text-2xl tracking-tight text-foreground uppercase">
+              BIPIN MEVADA
+              <span className="block text-[0.6rem] md:text-[0.7rem] tracking-[0.2em] font-sans -mt-1 md:-mt-2">Architects</span>
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+              We define architecture not by what is added, but by the space that is created.
             </p>
           </div>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Contact</h4>
-            <div className="space-y-3">
-              <div className="flex items-center">
-                <Mail className="w-5 h-5 mr-2 text-gray-700" />
+          {/* Navigation */}
+          <div className="space-y-4">
+            <h4 className="text-sm uppercase tracking-widest text-muted-foreground font-sans">
+              Explore
+            </h4>
+            <nav className="flex flex-col gap-3">
+              <Link
+                to="/"
+                className="text-sm text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Home
+              </Link>
+              <Link
+                to="/portfolio"
+                className="text-sm text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Portfolio
+              </Link>
+              <Link
+                to="/about"
+                className="text-sm text-foreground/80 hover:text-foreground transition-colors"
+              >
+                About & Contact
+              </Link>
+            </nav>
+          </div>
+
+          {/* Social */}
+          <div className="space-y-4">
+            <h4 className="text-sm uppercase tracking-widest text-muted-foreground font-sans">
+              Connect
+            </h4>
+            <div className="flex gap-3">
+              {socialLinks.map((social) => (
                 <a
-                  href="mailto:bipin.mevada@yahoo.com"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center border border-border rounded-sm text-muted-foreground hover:text-foreground hover:border-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+                  aria-label={social.label}
                 >
-                  bipin.mevada@yahoo.com
+                  <social.icon size={18} />
                 </a>
-              </div>
-              <div className="flex items-center">
-                <Phone className="w-5 h-5 mr-2 text-gray-700" />
-                <span className="text-gray-600">+91 98253-46592</span>
-              </div>
-              {/* <div className="flex items-center">
-                <MapPin className="w-5 h-5 mr-2 text-gray-700" />
-                <span className="text-gray-600">123 Design Street, NY 10001</span>
-              </div> */}
-            </div>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {["Home", "Projects", "About"].map((item) => (
-                <li key={item}>
-                  <button className="text-gray-600 hover:text-gray-900 transition-colors">
-                    {item}
-                  </button>
-                </li>
               ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
-            <div className="flex space-x-4">
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-green-600 transition-colors transform hover:scale-110"
-                aria-label="Contact us on WhatsApp"
-              >
-                {/* Using FaWhatsapp if you've added react-icons */}
-                <FaWhatsapp className="w-6 h-6" />
-              </a>
-              <a
-                href={instagramLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-pink-600 transition-colors transform hover:scale-110"
-                aria-label="Follow us on Instagram"
-              >
-                <Instagram className="w-6 h-6" />
-              </a>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mt-8 pt-8 text-center text-gray-600">
-          <p>
-            &copy; {new Date().getFullYear()} Archiform. All rights reserved.
+        {/* Bottom */}
+        <div className="mt-12 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} Bipin Mevada Architects. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground tracking-widest uppercase">
+            Architecture & Design
           </p>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
