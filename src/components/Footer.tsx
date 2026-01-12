@@ -1,11 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, MessageCircle } from "lucide-react";
-
-const socialLinks = [
-  { icon: MessageCircle, href: "https://wa.me/919825346592", label: "WhatsApp" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-];
+import { SOCIAL_LINKS, COMPANY_INFO } from "@/constants/contact";
 
 export function Footer() {
   return (
@@ -15,11 +9,11 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="font-serif text-xl md:text-2xl tracking-tight text-foreground uppercase">
-              BIPIN MEVADA
-              <span className="block text-[0.6rem] md:text-[0.7rem] tracking-[0.2em] font-sans -mt-1 md:-mt-2">Architects</span>
+              {COMPANY_INFO.name}
+              <span className="block text-[0.6rem] md:text-[0.7rem] tracking-[0.2em] font-sans -mt-1 md:-mt-2">{COMPANY_INFO.subtitle}</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              We define architecture not by what is added, but by the space that is created.
+              {COMPANY_INFO.tagline}
             </p>
           </div>
 
@@ -34,6 +28,12 @@ export function Footer() {
                 className="text-sm text-foreground/80 hover:text-foreground transition-colors"
               >
                 Home
+              </Link>
+              <Link
+                to="/projects"
+                className="text-sm text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Projects
               </Link>
               <Link
                 to="/portfolio"
@@ -56,16 +56,23 @@ export function Footer() {
               Connect
             </h4>
             <div className="flex gap-3">
-              {socialLinks.map((social) => (
+              {SOCIAL_LINKS.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center border border-border rounded-sm text-muted-foreground hover:text-foreground hover:border-foreground hover:bg-foreground hover:text-background transition-all duration-300"
-                  aria-label={social.label}
+                  className="flex items-center gap-4 group"
                 >
-                  <social.icon size={18} />
+                  <div className="w-10 h-10 flex items-center justify-center border border-border group-hover:border-foreground group-hover:bg-foreground transition-all duration-300">
+                    <social.icon size={16} className="text-muted-foreground group-hover:text-background transition-colors" />
+                  </div>
+                  {/* <div>
+                    <p className="text-sm group-hover:text-muted-foreground transition-colors">
+                      {social.label}
+                    </p>
+                    <p className="text-xs text-muted-foreground">{social.value}</p>
+                  </div> */}
                 </a>
               ))}
             </div>
@@ -75,7 +82,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Bipin Mevada Architects. All rights reserved.
+            {COMPANY_INFO.copyright}
           </p>
           <p className="text-xs text-muted-foreground tracking-widest uppercase">
             Architecture & Design

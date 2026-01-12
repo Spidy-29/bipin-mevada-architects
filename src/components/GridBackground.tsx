@@ -115,60 +115,7 @@ export function GridBackground() {
       }
 
       // --- 3. Manage and Draw Moving Spots ---
-      // Spawn new spots
-      if (spots.length < 8 && Math.random() < 0.05) {
-        spots.push(createSpot());
-      }
-
-      // Update and draw spots
-      for (let i = spots.length - 1; i >= 0; i--) {
-        const spot = spots[i];
-        spot.x += spot.dx;
-        spot.y += spot.dy;
-        spot.life++;
-
-        // Fade in and out
-        let spotOpacity = 1;
-        if (spot.life < 50) spotOpacity = spot.life / 50;
-        else if (spot.life > spot.maxLife - 50) spotOpacity = (spot.maxLife - spot.life) / 50;
-
-        // Kill if out of bounds or old
-        if (
-          spot.life > spot.maxLife ||
-          spot.x < -100 || spot.x > canvas.width + 100 ||
-          spot.y < -100 || spot.y > canvas.height + 100
-        ) {
-          spots.splice(i, 1);
-          continue;
-        }
-
-        // Draw "Head" (Bright moving dot)
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "rgba(100, 90, 80, 0.5)";
-        ctx.fillStyle = `rgba(100, 90, 80, ${spotOpacity * 0.6})`;
-        ctx.beginPath();
-        ctx.arc(spot.x, spot.y, spot.size * 2, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Draw "Tail" (Streak)
-        const tailLength = 40;
-        const grad = ctx.createLinearGradient(
-          spot.x, spot.y,
-          spot.x - spot.dx * tailLength,
-          spot.y - spot.dy * tailLength
-        );
-        grad.addColorStop(0, `rgba(100, 90, 80, ${spotOpacity * 0.4})`);
-        grad.addColorStop(1, "rgba(100, 90, 80, 0)");
-
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 2; // Slightly wider than grid line
-        ctx.beginPath();
-        ctx.moveTo(spot.x, spot.y);
-        ctx.lineTo(spot.x - spot.dx * tailLength, spot.y - spot.dy * tailLength);
-        ctx.stroke();
-
-        ctx.shadowBlur = 0; // Reset
-      }
+      // Moving spots animation removed as per request
 
       time += 0.01;
       animationId = requestAnimationFrame(draw);

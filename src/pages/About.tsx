@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Instagram, Facebook, MessageCircle, Mail, MapPin, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GridBackground } from "@/components/GridBackground";
 import { useToast } from "@/hooks/use-toast";
+import { SOCIAL_LINKS, CONTACT_INFO } from "@/constants/contact";
 import projectLiving from "@/assets/project-living.jpg";
 import heroImage from "@/assets/hero-architecture.jpg";
 
@@ -27,11 +28,7 @@ const services = [
   },
 ];
 
-const socialLinks = [
-  { icon: MessageCircle, href: "https://wa.me/919825346592", label: "WhatsApp", value: "+91 98253-46592" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram", value: "@bipinmevada" },
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook", value: "Bipin Mevada Architects" },
-];
+
 
 const About = () => {
   const { toast } = useToast();
@@ -157,26 +154,26 @@ const About = () => {
 
                 {/* Email */}
                 <a
-                  href="mailto:bipin.mevada@yahoo.com"
+                  href={CONTACT_INFO.email.href}
                   className="flex items-center gap-4 group"
                 >
                   <div className="w-12 h-12 flex items-center justify-center border border-border group-hover:border-foreground group-hover:bg-foreground transition-all duration-300">
-                    <Mail size={18} className="text-muted-foreground group-hover:text-background transition-colors" />
+                    <CONTACT_INFO.email.icon size={18} className="text-muted-foreground group-hover:text-background transition-colors" />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Email</p>
-                    <p className="group-hover:text-muted-foreground transition-colors">bipin.mevada@yahoo.com</p>
+                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{CONTACT_INFO.email.label}</p>
+                    <p className="group-hover:text-muted-foreground transition-colors">{CONTACT_INFO.email.value}</p>
                   </div>
                 </a>
 
                 {/* Location */}
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 flex items-center justify-center border border-border">
-                    <MapPin size={18} className="text-muted-foreground" />
+                    <CONTACT_INFO.location.icon size={18} className="text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Studio</p>
-                    <p className="text-muted-foreground">104, Solitaire, Near Bombay garage, Shahibaug, Ahmedabad</p>
+                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{CONTACT_INFO.location.label}</p>
+                    <p className="text-muted-foreground">{CONTACT_INFO.location.value}</p>
                   </div>
                 </div>
 
@@ -186,7 +183,7 @@ const About = () => {
                     Follow & Connect
                   </p>
                   <div className="space-y-3">
-                    {socialLinks.map((social) => (
+                    {SOCIAL_LINKS.map((social) => (
                       <a
                         key={social.label}
                         href={social.href}
