@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { SOCIAL_LINKS, CONTACT_INFO } from "@/constants/contact";
 import projectLiving from "@/assets/project-living.jpg";
 import heroImage from "@/assets/hero-architecture.jpg";
+import { logAnalyticsEvent } from "@/lib/firebase";
 
 const services = [
   {
@@ -41,6 +42,10 @@ const About = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    logAnalyticsEvent('generate_lead', {
+      event_category: 'contact',
+      event_label: 'contact_form'
+    });
     toast({
       title: "Message sent!",
       description: "Thank you for reaching out. We'll get back to you soon.",
@@ -156,6 +161,7 @@ const About = () => {
                 <a
                   href={CONTACT_INFO.email.href}
                   className="flex items-center gap-4 group"
+                  onClick={() => logAnalyticsEvent('select_content', { content_type: 'contact_link', content_id: 'email' })}
                 >
                   <div className="w-12 h-12 flex items-center justify-center border border-border group-hover:border-foreground group-hover:bg-foreground transition-all duration-300">
                     <CONTACT_INFO.email.icon size={18} className="text-muted-foreground group-hover:text-background transition-colors" />
@@ -189,6 +195,7 @@ const About = () => {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => logAnalyticsEvent('select_content', { content_type: 'social_link', content_id: social.label })}
                         className="flex items-center gap-4 group"
                       >
                         <div className="w-10 h-10 flex items-center justify-center border border-border group-hover:border-foreground group-hover:bg-foreground transition-all duration-300">

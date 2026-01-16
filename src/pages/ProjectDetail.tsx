@@ -9,6 +9,7 @@ import { useProjects, useProjectAssets } from "@/hooks/useContent";
 import ImageViewer from "@/components/ImageViewer";
 import { AssetDisplay } from "@/components/AssetDisplay";
 import { Asset } from "@/types/cms";
+import { logAnalyticsEvent } from "@/lib/firebase";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -73,7 +74,10 @@ const ProjectDetail = () => {
       <main className="pt-24 md:pt-32 relative z-10">
         {/* Hero Image */}
         {heroImage && (
-          <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden cursor-pointer" onClick={() => setSelectedAsset(heroImage)}>
+          <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden cursor-pointer" onClick={() => {
+            setSelectedAsset(heroImage);
+            logAnalyticsEvent('select_content', { content_type: 'hero_image', content_id: heroImage.asset_id });
+          }}>
             <img
               src={heroImage.asset_url}
               alt={project.project_title}
@@ -128,7 +132,10 @@ const ProjectDetail = () => {
                   asset={image}
                   alt={`${project.project_title} - ${index + 2}`}
                   aspectRatio="video"
-                  onClick={() => setSelectedAsset(image)}
+                  onClick={() => {
+                    setSelectedAsset(image);
+                    logAnalyticsEvent('select_content', { content_type: 'image', content_id: image.asset_id });
+                  }}
                 />
               ))}
             </div>
@@ -144,7 +151,10 @@ const ProjectDetail = () => {
                       asset={video}
                       alt={video.title || 'Project video'}
                       aspectRatio="video"
-                      onClick={() => setSelectedAsset(video)}
+                      onClick={() => {
+                        setSelectedAsset(video);
+                        logAnalyticsEvent('select_content', { content_type: 'video', content_id: video.asset_id });
+                      }}
                     />
                   ))}
                 </div>
@@ -162,7 +172,10 @@ const ProjectDetail = () => {
                       asset={pdf}
                       alt={pdf.title || 'Project document'}
                       aspectRatio="4/3"
-                      onClick={() => setSelectedAsset(pdf)}
+                      onClick={() => {
+                        setSelectedAsset(pdf);
+                        logAnalyticsEvent('select_content', { content_type: 'pdf', content_id: pdf.asset_id });
+                      }}
                     />
                   ))}
                 </div>

@@ -8,6 +8,7 @@ import { useAssets } from "@/hooks/useContent";
 import ImageViewer from "@/components/ImageViewer";
 import { AssetCard } from "@/components/AssetCard";
 import { Asset } from "@/types/cms";
+import { logAnalyticsEvent } from "@/lib/firebase";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState<string>("All");
@@ -71,7 +72,13 @@ const Portfolio = () => {
             {filters.map((filter) => (
               <button
                 key={filter}
-                onClick={() => setActiveFilter(filter)}
+                onClick={() => {
+                  setActiveFilter(filter);
+                  logAnalyticsEvent("view_item_list", {
+                    item_list_name: "Portfolio",
+                    item_list_id: filter,
+                  });
+                }}
                 className={cn(
                   "text-xs md:text-sm uppercase tracking-widest pb-1 transition-all duration-300",
                   activeFilter === filter
@@ -96,7 +103,13 @@ const Portfolio = () => {
                   key={item.asset_id}
                   asset={item}
                   index={index}
-                  onClick={() => setSelectedAsset(item)}
+                  onClick={() => {
+                    setSelectedAsset(item);
+                    logAnalyticsEvent("select_content", {
+                      content_type: "asset",
+                      content_id: item.asset_id,
+                    });
+                  }}
                 />
               ))}
             </div>
