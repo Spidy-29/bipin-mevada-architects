@@ -23,6 +23,13 @@ const fetchFromApi = async (): Promise<ApiResponse> => {
   if (cache) return cache;
   if (cachePromise) return cachePromise;
 
+  // Validate API configuration
+  if (!GOOGLE_SHEET_URLS.API_URL || !GOOGLE_SHEET_URLS.API_KEY) {
+    const error = new Error('API configuration is missing. Please check your environment variables.');
+    console.error('API Configuration Error:', error);
+    throw error;
+  }
+
   const url = `${GOOGLE_SHEET_URLS.API_URL}?key=${encodeURIComponent(GOOGLE_SHEET_URLS.API_KEY)}`;
 
   cachePromise = fetch(url)
