@@ -18,7 +18,6 @@ const ProjectDetail = () => {
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
 
   const project = projects?.find((p) => p.project_id === id);
-  console.log("project on detail page == ", projects)
 
   // Get only visible/public projects for navigation
   const visibleProjects = projects
@@ -125,18 +124,20 @@ const ProjectDetail = () => {
             </div>
 
             {/* Gallery */}
-            <div className="space-y-6">
+            {/* Gallery */}
+            <div className="columns-1 md:columns-2 gap-4 md:gap-6 space-y-4 md:space-y-6">
               {galleryImages.map((image, index) => (
-                <AssetDisplay
-                  key={image.asset_id}
-                  asset={image}
-                  alt={`${project.project_title} - ${index + 2}`}
-                  aspectRatio="video"
-                  onClick={() => {
-                    setSelectedAsset(image);
-                    logAnalyticsEvent('select_content', { content_type: 'image', content_id: image.asset_id });
-                  }}
-                />
+                <div key={image.asset_id} className="break-inside-avoid mb-4 md:mb-6">
+                  <AssetDisplay
+                    asset={image}
+                    alt={`${project.project_title} - ${index + 2}`}
+                    aspectRatio={index % 3 === 0 ? '3/4' : index % 3 === 1 ? 'square' : '4/3'}
+                    onClick={() => {
+                      setSelectedAsset(image);
+                      logAnalyticsEvent('select_content', { content_type: 'image', content_id: image.asset_id });
+                    }}
+                  />
+                </div>
               ))}
             </div>
 

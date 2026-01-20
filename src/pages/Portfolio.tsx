@@ -10,8 +10,11 @@ import { AssetCard } from "@/components/AssetCard";
 import { Asset } from "@/types/cms";
 import { logAnalyticsEvent } from "@/lib/firebase";
 
+const ITEMS_PER_PAGE = 10;
+
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState<string>("All");
+  const [currentPage, setCurrentPage] = useState(1);
   const { data: assets, isLoading } = useAssets();
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
 
@@ -45,7 +48,6 @@ const Portfolio = () => {
 
   // Sort by display order
   const sortedItems = [...filteredItems].sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
-  console.log("sortedItems", sortedItems)
   return (
     <div className="min-h-screen bg-background relative">
       <GridBackground />
@@ -74,6 +76,7 @@ const Portfolio = () => {
                 key={filter}
                 onClick={() => {
                   setActiveFilter(filter);
+                  setCurrentPage(1);
                   logAnalyticsEvent("view_item_list", {
                     item_list_name: "Portfolio",
                     item_list_id: filter,
@@ -97,22 +100,56 @@ const Portfolio = () => {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {sortedItems.map((item, index) => (
-                <AssetCard
-                  key={item.asset_id}
-                  asset={item}
-                  index={index}
-                  onClick={() => {
-                    setSelectedAsset(item);
-                    logAnalyticsEvent("select_content", {
-                      content_type: "asset",
-                      content_id: item.asset_id,
-                    });
-                  }}
-                />
-              ))}
-            </div>
+            <>
+              <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
+                {sortedItems
+                  .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+                  .map((item, index) => (
+                    <div key={`${item.asset_id}-${index}`} className="break-inside-avoid mb-4 md:mb-6">
+                      <AssetCard
+                        asset={item}
+                        index={index}
+                        onClick={() => {
+                          setSelectedAsset(item);
+                          logAnalyticsEvent("select_content", {
+                            content_type: "asset",
+                            content_id: item.asset_id,
+                          });
+                        }}
+                      />
+                    </div>
+                  ))}
+              </div>
+
+              {/* Pagination Controls */}
+              {Math.ceil(sortedItems.length / ITEMS_PER_PAGE) > 1 && (
+                <div className="flex justify-center items-center gap-6 mt-12">
+                  <button
+                    onClick={() => {
+                      setCurrentPage((p) => Math.max(1, p - 1));
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 border border-border text-xs uppercase tracking-widest hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Previous
+                  </button>
+                  <span className="text-sm font-light text-muted-foreground">
+                    Page {currentPage} of {Math.ceil(sortedItems.length / ITEMS_PER_PAGE)}
+                  </span>
+                  <button
+                    onClick={() => {
+                      setCurrentPage((p) => Math.min(Math.ceil(sortedItems.length / ITEMS_PER_PAGE), p + 1));
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    disabled={currentPage === Math.ceil(sortedItems.length / ITEMS_PER_PAGE)}
+                    className="px-4 py-2 border border-border text-xs uppercase tracking-widest hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </main>

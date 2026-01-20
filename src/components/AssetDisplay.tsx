@@ -29,6 +29,20 @@ export const AssetDisplay = ({
     showOverlay = true,
     showTypeIcon = true,
 }: AssetDisplayProps) => {
+    // Helper to check file type from URL extension
+    const getFileTypeFromUrl = (url: string) => {
+        if (!url) return null;
+        const cleanUrl = url.split('?')[0].split('#')[0];
+        const extension = cleanUrl.split('.').pop()?.toLowerCase();
+
+        if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'ico', 'tiff'].includes(extension || '')) return 'image';
+        if (['mp4', 'webm', 'ogg', 'mov'].includes(extension || '')) return 'video';
+        if (extension === 'pdf') return 'pdf';
+        return null;
+    };
+
+    const effectiveType = getFileTypeFromUrl(asset.asset_url) || asset.asset_type;
+
     return (
         <div
             className={cn(
@@ -43,6 +57,7 @@ export const AssetDisplay = ({
                 alt={alt || asset.title || 'Asset'}
                 aspectRatio={aspectRatio}
                 className="transition-transform duration-700 group-hover:scale-105"
+                assetType={effectiveType as any}
             />
 
             {/* Overlay and Icons */}
@@ -54,7 +69,7 @@ export const AssetDisplay = ({
                     )}
 
                     {/* Video Play Icon - Only show on hover */}
-                    {showTypeIcon && asset.asset_type === "video" && (
+                    {showTypeIcon && effectiveType === "video" && (
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                             <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-background/90 flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-xl">
                                 <Play size={24} className="text-foreground ml-1" fill="currentColor" />
@@ -63,7 +78,7 @@ export const AssetDisplay = ({
                     )}
 
                     {/* PDF Document Icon - Only show on hover */}
-                    {showTypeIcon && asset.asset_type === "pdf" && (
+                    {showTypeIcon && effectiveType === "pdf" && (
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                             <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-background/90 flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-xl">
                                 <FileText size={24} className="text-foreground" />

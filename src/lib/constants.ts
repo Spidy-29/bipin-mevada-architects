@@ -3,21 +3,7 @@
 const API_URL = import.meta.env.VITE_GOOGLE_SHEET_API_URL;
 const API_KEY = import.meta.env.VITE_GOOGLE_SHEET_API_KEY;
 
-// Debug: Log what we're getting (without exposing the full key)
-if (import.meta.env.DEV) {
-  console.log('🔍 Environment variables check:', {
-    API_URL: API_URL ? `${API_URL.substring(0, 50)}...` : 'MISSING',
-    API_KEY: API_KEY ? `${API_KEY.substring(0, 10)}...` : 'MISSING',
-    hasAPI_URL: !!API_URL,
-    hasAPI_KEY: !!API_KEY,
-  });
-}
-
 if (!API_URL || !API_KEY) {
-  console.warn('⚠️ Missing environment variables:', {
-    API_URL: !!API_URL,
-    API_KEY: !!API_KEY,
-  });
   console.warn('Please ensure .env file exists with VITE_GOOGLE_SHEET_API_URL and VITE_GOOGLE_SHEET_API_KEY');
   console.warn('⚠️ IMPORTANT: Restart your dev server after creating/updating .env file!');
 }
@@ -47,6 +33,5 @@ export const CONTACT_INFO = {
   email: 'bipin.mevada@yahoo.com', // Placeholder
   phone: '+91 9825346592', // Placeholder
   instagram: 'https://instagram.com',
-  facebook: 'https://facebook.com',
   whatsapp: 'https://wa.me/919825346592',
 };

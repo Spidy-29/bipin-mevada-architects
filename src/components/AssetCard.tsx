@@ -25,6 +25,7 @@ export const AssetCard = ({ asset, index, onClick }: AssetCardProps) => {
                     alt={asset.title || 'Portfolio Item'}
                     aspectRatio={aspectRatio}
                     className="transition-transform duration-700 group-hover:scale-105"
+                    assetType={asset.asset_type}
                 />
 
                 {/* Overlay container - always positioned absolutely over the entire card */}
