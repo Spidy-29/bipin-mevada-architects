@@ -51,7 +51,7 @@ export const CONTACT_INFO = {
     type: "location" as const,
     icon: MapPin,
     label: "Studio",
-    value: "Ghatlodia, Ahmedabad",
+    value: "119, Ellisbridge Shopping Center, Ahmedabad, Gujarat, India",
   },
 };
 
