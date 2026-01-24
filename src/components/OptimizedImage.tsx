@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { getDriveUrlVariations, convertToThumbnailUrl } from '@/lib/driveUtils';
 import { usePdfThumbnail } from '@/hooks/usePdfThumbnail';
+import { transformImageKitUrl } from '@/lib/imageKitUtils';
 
 interface OptimizedImageProps {
     src: string;
@@ -67,11 +68,32 @@ export const OptimizedImage = ({
     // If PDF: use drive thumb -> generated thumb -> fallback (nothing/error)
     // If Image: use currentSrc (which might change on error/retry)
     // If Video: use currentSrc (usually fails unless video has poster, handled by fallback)
+
+
+    // ... (existing imports)
+
+    // ... (existing logic)
+
+    // Determine the actual image source to render
+    // If PDF: use drive thumb -> generated thumb -> fallback (nothing/error)
+    // If Image: use currentSrc (which might change on error/retry)
+    // If Video: use currentSrc (usually fails unless video has poster, handled by fallback)
     let displaySrc = currentSrc;
     if (effectiveAssetType === 'pdf') {
         if (pdfDriveThumbUrl) displaySrc = pdfDriveThumbUrl;
         else if (generatedPdfThumb) displaySrc = generatedPdfThumb;
     }
+
+    // Apply ImageKit transformations if it's an ImageKit URL
+    // We apply default optimizations (f-auto, q-auto)
+    // We can also potentially guess width based on usage or allow props
+    displaySrc = transformImageKitUrl(displaySrc, {
+        // We could pass width if we knew the container size, but browsers handle 
+        // intrinsic sizes if we just optimize quality/format. 
+        // Ideally, we'd use srcset, but for now, simple optimization:
+        quality: 'auto',
+        format: 'auto'
+    });
 
     // If we changed sources (e.g. thumb loaded), we should reset loading state?
     // Actually, the img tag's onLoad will handle it.
@@ -162,6 +184,14 @@ export const OptimizedImage = ({
             ) : tryRenderImg && (
                 <img
                     src={displaySrc}
+                    // Generate srcset for ImageKit URLs for better responsiveness
+                    srcSet={displaySrc.includes('imagekit.io') ?
+                        `${transformImageKitUrl(displaySrc, { width: 400 })} 400w,
+                         ${transformImageKitUrl(displaySrc, { width: 800 })} 800w,
+                         ${transformImageKitUrl(displaySrc, { width: 1200 })} 1200w,
+                         ${transformImageKitUrl(displaySrc, { width: 1600 })} 1600w`
+                        : undefined}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     alt={alt}
                     loading={loading}
                     onLoad={handleLoad}

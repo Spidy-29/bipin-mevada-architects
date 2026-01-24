@@ -41,6 +41,7 @@ const Index = () => {
               src={heroImage}
               alt="Modern architectural interior"
               className="w-full h-full object-cover"
+              loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/20" />
             <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-transparent" />

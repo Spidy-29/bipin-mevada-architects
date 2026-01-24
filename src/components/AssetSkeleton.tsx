@@ -18,8 +18,8 @@ export const AssetSkeleton = ({ className, aspectRatio = "video" }: AssetSkeleto
     };
 
     return (
-        <div className={cn("overflow-hidden rounded-sm", className)}>
-            <Skeleton className={cn("w-full h-full", getAspectRatioClass())} />
+        <div className={cn("overflow-hidden rounded-sm bg-muted/30", className)}>
+            <Skeleton className={cn("w-full h-full bg-muted/50", getAspectRatioClass())} />
         </div>
     );
 };

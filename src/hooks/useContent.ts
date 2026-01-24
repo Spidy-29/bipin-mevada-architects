@@ -8,6 +8,8 @@ export const useAssets = () => {
     queryKey: ['assets'],
     queryFn: fetchAssets,
     staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 };
 
@@ -16,6 +18,8 @@ export const useProjects = () => {
     queryKey: ['projects'],
     queryFn: fetchProjects,
     staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnMount: false, // Don't refetch immediately if we have fresh data
+    refetchOnWindowFocus: false,
   });
 };
 

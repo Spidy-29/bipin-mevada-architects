@@ -7,9 +7,10 @@ interface AssetCardProps {
     asset: Asset;
     index: number;
     onClick: () => void;
+    priority?: boolean;
 }
 
-export const AssetCard = ({ asset, index, onClick }: AssetCardProps) => {
+export const AssetCard = ({ asset, index, onClick, priority = false }: AssetCardProps) => {
     const aspectRatio = index % 3 === 0 ? '3/4' : index % 3 === 1 ? 'square' : '4/3';
 
     return (
@@ -26,6 +27,7 @@ export const AssetCard = ({ asset, index, onClick }: AssetCardProps) => {
                     className="transition-transform duration-700 group-hover:scale-105"
                     showOverlay={true}
                     showTypeIcon={true}
+                    loading={priority ? "eager" : "lazy"}
                 >
                     {/* Hover overlay with info */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-foreground/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
