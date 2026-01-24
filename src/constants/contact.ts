@@ -51,7 +51,7 @@ export const CONTACT_INFO = {
     type: "location" as const,
     icon: MapPin,
     label: "Studio",
-    value: "104, Solitaire, Near Bombay garage, Shahibaug, Ahmedabad",
+    value: "Ghatlodia, Ahmedabad",
   },
 };
 
