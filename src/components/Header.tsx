@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useProjects } from "@/hooks/useContent";
 
-const navLinks = [
+const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "Portfolio", href: "/portfolio" },
@@ -12,6 +13,7 @@ const navLinks = [
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: projects, isLoading } = useProjects();
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
@@ -26,6 +28,14 @@ export function Header() {
   useEffect(() => {
     setIsOpen(false);
   }, [location]);
+
+  // Filter out Projects link if no projects available
+  const filteredLinks = NAV_LINKS.filter(link => {
+    if (link.label === "Projects") {
+      return !isLoading && projects && projects.length > 0;
+    }
+    return true;
+  });
 
   return (
     <header
@@ -48,7 +58,7 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {filteredLinks.map((link) => (
             <Link
               key={link.href}
               to={link.href}
@@ -82,7 +92,7 @@ export function Header() {
         )}
       >
         <nav className="flex flex-col items-center gap-8">
-          {navLinks.map((link, index) => (
+          {filteredLinks.map((link, index) => (
             <Link
               key={link.href}
               to={link.href}

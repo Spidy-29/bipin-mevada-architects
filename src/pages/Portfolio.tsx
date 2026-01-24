@@ -7,6 +7,7 @@ import { GridBackground } from "@/components/GridBackground";
 import { useAssets } from "@/hooks/useContent";
 import ImageViewer from "@/components/ImageViewer";
 import { AssetCard } from "@/components/AssetCard";
+import { AssetSkeleton } from "@/components/AssetSkeleton";
 import { Asset } from "@/types/cms";
 import { logAnalyticsEvent } from "@/lib/firebase";
 
@@ -38,6 +39,9 @@ const Portfolio = () => {
 
   const filteredItems = assets?.filter((item) => {
     if (item.visibility === 'hidden') return false;
+
+    // Explicitly filter out PDF assets
+    if (item.asset_type === 'pdf') return false;
 
     if (activeFilter === "All") return true;
     if (activeFilter === "Videos") return item.asset_type === "video";
@@ -96,8 +100,15 @@ const Portfolio = () => {
 
           {/* Portfolio Grid */}
           {isLoading ? (
-            <div className="flex justify-center py-20">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="break-inside-avoid mb-4 md:mb-6">
+                  <AssetSkeleton
+                    aspectRatio={i % 3 === 0 ? '3/4' : i % 3 === 1 ? 'square' : '4/3'}
+                    className="w-full"
+                  />
+                </div>
+              ))}
             </div>
           ) : (
             <>

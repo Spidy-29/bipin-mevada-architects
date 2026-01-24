@@ -2,6 +2,7 @@ import { Play, FileText } from 'lucide-react';
 import { OptimizedImage } from './OptimizedImage';
 import { Asset } from '@/types/cms';
 import { cn } from '@/lib/utils';
+import { ReactNode } from 'react';
 
 interface AssetDisplayProps {
     asset: Asset;
@@ -11,6 +12,7 @@ interface AssetDisplayProps {
     onClick?: () => void;
     showOverlay?: boolean;
     showTypeIcon?: boolean;
+    children?: ReactNode;
 }
 
 /**
@@ -28,6 +30,7 @@ export const AssetDisplay = ({
     onClick,
     showOverlay = true,
     showTypeIcon = true,
+    children,
 }: AssetDisplayProps) => {
     // Helper to check file type from URL extension
     const getFileTypeFromUrl = (url: string) => {
@@ -61,7 +64,7 @@ export const AssetDisplay = ({
             />
 
             {/* Overlay and Icons */}
-            {(showOverlay || showTypeIcon) && (
+            {(showOverlay || showTypeIcon || children) && (
                 <div className="absolute inset-0">
                     {/* Hover overlay */}
                     {showOverlay && (
@@ -85,6 +88,9 @@ export const AssetDisplay = ({
                             </div>
                         </div>
                     )}
+
+                    {/* Custom Content (e.g. text overlays) */}
+                    {children}
                 </div>
             )}
         </div>
