@@ -34,7 +34,7 @@ export const AssetCard = ({ asset, index, onClick, priority = false }: AssetCard
                         <span className="text-xs uppercase tracking-widest text-background/70 block">
                             {asset.work_category} {asset.year ? `• ${asset.year}` : ''}
                         </span>
-                        <h3 className="font-serif text-lg text-background">{asset.title}</h3>
+                        <h3 className="font-serif text-h3 text-background">{asset.title}</h3>
 
                         {/* Show View Project button if asset belongs to a project */}
                         {asset.project_id && (

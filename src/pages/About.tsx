@@ -12,20 +12,20 @@ import { logAnalyticsEvent } from "@/lib/firebase";
 
 const services = [
   {
-    title: "Architectural Design",
-    description: "Complete residential and commercial architectural solutions from concept to completion.",
+    title: "Residential Architecture",
+    description: "Complete home architectural solutions — from budget-friendly residences to luxurious bungalows, from concept to completion.",
   },
   {
     title: "Interior Design",
-    description: "Thoughtful interior spaces that balance aesthetics with functionality.",
+    description: "Thoughtful interior architecture that harmonises aesthetics, materials, and how you truly live each day.",
   },
   {
-    title: "Space Planning",
-    description: "Optimizing layouts to maximize the potential of every square foot.",
+    title: "Space Planning & Renovation",
+    description: "Smart layouts that maximise every square foot, ensuring your space works beautifully whether building new or renovating.",
   },
   {
     title: "3D Visualization",
-    description: "Photorealistic renders and walkthroughs to bring your vision to life.",
+    description: "Photorealistic 3D renders and virtual walkthroughs to experience your dream home before a single brick is laid.",
   },
 ];
 
@@ -64,24 +64,24 @@ const About = () => {
           <div className="container">
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               <div className="space-y-6">
-                <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                <span className="text-overline uppercase text-muted-foreground">
                   About Us
                 </span>
-                <h1 className="font-serif text-3xl md:text-5xl font-light">
-                  Architecture as a
+                <h1 className="font-serif text-h1">
+                  A home is not just four walls —
                   <br />
-                  <span className="italic">dialogue with nature</span>
+                  <span className="italic">it’s about how you live in them</span>
                 </h1>
                 <div className="w-12 h-px bg-line" />
                 <div className="space-y-4 text-muted-foreground">
                   <p className="text-base md:text-lg leading-relaxed">
-                    We are a multidisciplinary design practice rooted in the belief that spaces should be felt before they are seen.
+                    We specialise in residential architecture, from budget-friendly homes to luxurious bungalows, creating beautiful and functional spaces tailored to our clients’ needs.
                   </p>
                   <p className="leading-relaxed">
-                    Our work oscillates between the technical rigors of construction and the poetic nuances of habitation.
+                    We believe that a home is deeply personal. It’s not simply an assemblage of structure and materials — it is the stage where life unfolds every day.
                   </p>
                   <p className="leading-relaxed">
-                    From the first sketch to the final stone, we pursue a singular vision: to create environments that are not just occupied, but experienced.
+                    Every plot has a story, and we’re here to help design it right. From initial concept sketches to technical coordination and final handover, we design spaces that inspire confidence, comfort, and enduring pride.
                   </p>
                 </div>
               </div>
@@ -102,20 +102,20 @@ const About = () => {
         <section className="section-container bg-card/50 backdrop-blur-sm">
           <div className="container">
             <div className="text-center mb-10 md:mb-14">
-              <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground block mb-3">
+              <span className="text-overline uppercase text-muted-foreground block mb-3">
                 What We Do
               </span>
-              <h2 className="font-serif text-2xl md:text-4xl font-light">Our Services</h2>
+              <h2 className="font-serif text-h2">Our Services</h2>
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {services.map((service, index) => (
                 <div
                   key={service.title}
-                  className="p-6 border border-border hover:border-foreground/30 bg-background/50 transition-all duration-300 opacity-0 animate-fade-up"
+                  className="p-6 border border-border hover:border-foreground/30 bg-card transition-all duration-300 opacity-0 animate-fade-up"
                   style={{ animationDelay: `${index * 100}ms`, animationFillMode: "forwards" }}
                 >
-                  <h3 className="font-serif text-lg md:text-xl font-light mb-3">
+                  <h3 className="font-serif text-h3 mb-3">
                     {service.title}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -141,10 +141,10 @@ const About = () => {
         <section className="section-container">
           <div className="container">
             <div className="text-center mb-10 md:mb-14">
-              <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground block mb-3">
+              <span className="text-overline uppercase text-muted-foreground block mb-3">
                 Get In Touch
               </span>
-              <h2 className="font-serif text-2xl md:text-4xl font-light">
+              <h2 className="font-serif text-h2">
                 Let's create together
               </h2>
             </div>
@@ -153,11 +153,10 @@ const About = () => {
               {/* Contact Info */}
               <div className="space-y-8">
                 <p className="text-muted-foreground leading-relaxed">
-                  Have a project in mind? We'd love to hear from you.
-                  Reach out through any of the channels below or send us a message.
+                  Planning to build or renovate? Connect with us to discuss your project. Every plot has a story, and we’re here to help design it right.
                 </p>
 
-                {/* Email */}
+                {/* Primary Email */}
                 <a
                   href={CONTACT_INFO.email.href}
                   className="flex items-center gap-4 group"
@@ -172,6 +171,21 @@ const About = () => {
                   </div>
                 </a>
 
+                {/* Secondary Email */}
+                <a
+                  href={CONTACT_INFO.emailSecondary.href}
+                  className="flex items-center gap-4 group"
+                  onClick={() => logAnalyticsEvent('select_content', { content_type: 'contact_link', content_id: 'email_secondary' })}
+                >
+                  <div className="w-12 h-12 flex items-center justify-center border border-border group-hover:border-foreground group-hover:bg-foreground transition-all duration-300">
+                    <CONTACT_INFO.emailSecondary.icon size={18} className="text-muted-foreground group-hover:text-background transition-colors" />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{CONTACT_INFO.emailSecondary.label}</p>
+                    <p className="group-hover:text-muted-foreground transition-colors">{CONTACT_INFO.emailSecondary.value}</p>
+                  </div>
+                </a>
+
                 {/* Location */}
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 flex items-center justify-center border border-border">
@@ -179,7 +193,7 @@ const About = () => {
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{CONTACT_INFO.location.label}</p>
-                    <p className="text-muted-foreground">{CONTACT_INFO.location.value}</p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{CONTACT_INFO.location.value}</p>
                   </div>
                 </div>
 
@@ -214,8 +228,8 @@ const About = () => {
               </div>
 
               {/* Contact Form */}
-              <div className="bg-card/80 backdrop-blur-sm p-6 md:p-10 border border-border">
-                <h3 className="font-serif text-xl md:text-2xl font-light mb-6">
+              <div className="bg-card p-6 md:p-10 border border-border">
+                <h3 className="font-serif text-h3 mb-6">
                   Send a message
                 </h3>
 

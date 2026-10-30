@@ -16,9 +16,9 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-foreground underline-offset-4 hover:underline decoration-1 px-0",
         // Architectural variants
-        architectural: "bg-transparent border border-foreground text-foreground hover:bg-foreground hover:text-background",
+        architectural: "bg-primary border border-primary text-primary-foreground hover:bg-brand-hover hover:border-brand-hover hover:text-brand-contrast",
         minimal: "bg-transparent text-foreground hover:text-muted-foreground relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-foreground after:transition-all after:duration-300 hover:after:w-full px-0",
-        stone: "bg-stone text-charcoal hover:bg-stone/80",
+        stone: "bg-stone text-primary-foreground hover:bg-brand-hover hover:text-brand-contrast",
       },
       size: {
         default: "h-11 px-6 py-2",

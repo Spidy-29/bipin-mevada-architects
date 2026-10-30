@@ -61,10 +61,10 @@ const Portfolio = () => {
         <div className="container">
           {/* Page Header */}
           <header className="max-w-2xl mb-10 md:mb-16">
-            <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground block mb-3">
+            <span className="text-overline uppercase text-muted-foreground block mb-3">
               Portfolio
             </span>
-            <h1 className="font-serif text-3xl md:text-5xl font-light mb-4">
+            <h1 className="font-serif text-h1 mb-4">
               Our Work
             </h1>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
@@ -145,7 +145,7 @@ const Portfolio = () => {
                   >
                     Previous
                   </button>
-                  <span className="text-sm font-light text-muted-foreground">
+                  <span className="text-sm font-normal text-muted-foreground">
                     Page {currentPage} of {Math.ceil(sortedItems.length / ITEMS_PER_PAGE)}
                   </span>
                   <button

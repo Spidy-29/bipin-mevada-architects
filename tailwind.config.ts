@@ -18,8 +18,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        serif: ["Playfair Display", "serif"],
-        sans: ["Manrope", "sans-serif"],
+        serif: ["Product Sans", "system-ui", "-apple-system", "sans-serif"],
+        sans: ["Product Sans", "system-ui", "-apple-system", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -55,12 +55,28 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Architectural custom colors
+        // Brand custom colors
+        brand: {
+          DEFAULT: "var(--brand-primary)",
+          hover: "var(--brand-hover)",
+          light: "var(--brand-light)",
+          contrast: "var(--brand-contrast)",
+        },
+        surface: {
+          DEFAULT: "var(--surface-background)",
+          card: "var(--surface-card)",
+        },
+        "text-primary": "var(--text-primary)",
+        "text-muted": "var(--text-muted)",
+        "border-subtle": "var(--border-subtle)",
+        gold: "var(--accent-gold)",
         stone: "hsl(var(--stone))",
         cream: "hsl(var(--cream))",
         charcoal: "hsl(var(--charcoal))",
         "warm-grey": "hsl(var(--warm-grey))",
         line: "hsl(var(--line-color))",
+        "brand-hover": "var(--brand-hover)",
+        "accent-gold": "var(--accent-gold)",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -78,15 +94,14 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontSize: {
-        // Architectural typography scale
-        "display-xl": ["clamp(3rem, 8vw, 6rem)", { lineHeight: "1", letterSpacing: "-0.02em" }],
-        "display": ["clamp(2.5rem, 6vw, 4.5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
-        "heading": ["clamp(1.75rem, 4vw, 2.5rem)", { lineHeight: "1.2", letterSpacing: "-0.01em" }],
-        "subheading": ["clamp(1.25rem, 2.5vw, 1.5rem)", { lineHeight: "1.3" }],
-        "body-lg": ["1.125rem", { lineHeight: "1.7" }],
-        "body": ["1rem", { lineHeight: "1.7" }],
-        "small": ["0.875rem", { lineHeight: "1.6" }],
-        "caption": ["0.75rem", { lineHeight: "1.5", letterSpacing: "0.05em" }],
+        "display": ["3.5rem", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "h1": ["2.5rem", { lineHeight: "1.2", letterSpacing: "-0.015em", fontWeight: "700" }],
+        "h2": ["2rem", { lineHeight: "1.25", letterSpacing: "-0.01em", fontWeight: "500" }],
+        "h3": ["1.5rem", { lineHeight: "1.35", fontWeight: "500" }],
+        "overline": ["0.75rem", { lineHeight: "1.4", letterSpacing: "0.08em", fontWeight: "700" }],
+        "body-lg": ["1.125rem", { lineHeight: "1.6", fontWeight: "400" }],
+        "body": ["1rem", { lineHeight: "1.5", fontWeight: "400" }],
+        "caption": ["0.875rem", { lineHeight: "1.4", fontWeight: "400" }],
       },
       spacing: {
         "section": "clamp(4rem, 10vw, 8rem)",

@@ -1,113 +1,128 @@
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Architectural Palette - Warm Stone & Charcoal */
-    --background: 40 20% 98%;
-    --foreground: 30 10% 15%;
+    /* BM Design Studio brand colors (hex tokens) */
+    --brand-primary: #56321B;
+    --brand-hover: #3B2212;
+    --brand-contrast: #FAF8F5;
+    --brand-light: #F3EDE8;
+    --accent-gold: #C5A059;
+    --surface-background: #FAF8F5;
+    --surface-card: #FFFFFF;
+    --border-subtle: #E7E2DB;
+    --text-primary: #1C1917;
+    --text-muted: #6B635B;
 
-    --card: 40 15% 96%;
-    --card-foreground: 30 10% 15%;
-
-    --popover: 40 20% 98%;
-    --popover-foreground: 30 10% 15%;
-
-    /* Primary - Deep Charcoal */
-    --primary: 30 8% 20%;
-    --primary-foreground: 40 20% 98%;
-
-    /* Secondary - Warm Stone */
-    --secondary: 35 12% 90%;
-    --secondary-foreground: 30 10% 20%;
-
-    /* Muted - Soft Beige */
-    --muted: 38 15% 92%;
-    --muted-foreground: 30 8% 45%;
-
-    /* Accent - Warm Taupe */
-    --accent: 32 18% 85%;
-    --accent-foreground: 30 10% 18%;
+    /* HSL aliases used by shadcn/ui utilities */
+    --background: 36 33.333% 97.059%;
+    --foreground: 24 9.804% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 9.804% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 9.804% 10%;
+    --primary: 23.39 52.212% 22.157%;
+    --primary-foreground: 36 33.333% 97.059%;
+    --secondary: 27.273 31.429% 93.137%;
+    --secondary-foreground: 24 9.804% 10%;
+    --muted: 27.273 31.429% 93.137%;
+    --muted-foreground: 30 8.081% 38.824%;
+    --accent: 39.444 48.214% 56.078%;
+    --accent-foreground: 24 9.804% 10%;
 
     --destructive: 0 60% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 35 15% 88%;
-    --input: 35 15% 88%;
-    --ring: 30 10% 30%;
+    --border: 35 20% 88.235%;
+    --input: 35 20% 88%;
+    --ring: 23.39 52.212% 22.157%;
 
     --radius: 0.25rem;
 
-    /* Custom architectural tokens */
-    --stone: 35 18% 75%;
-    --cream: 42 25% 95%;
-    --charcoal: 30 8% 18%;
-    --warm-grey: 30 6% 55%;
-    --line-color: 30 10% 80%;
+    /* Legacy aliases retained for existing components */
+    --stone: 23.39 52.212% 22.157%;
+    --cream: 36 33.333% 97.059%;
+    --charcoal: 24 9.804% 10%;
+    --warm-grey: 30 8.081% 38.824%;
+    --line-color: 35 20% 88.235%;
+    --brand-hover-hsl: 23.415 53.247% 15.098%;
+    --accent-gold-hsl: 39.444 48.214% 56.078%;
 
     /* Typography */
-    --font-serif: 'Playfair Display', serif;
-    --font-sans: 'Manrope', sans-serif;
+    --font-sans: 'Product Sans', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Product Sans', system-ui, -apple-system, sans-serif;
+
+    /* Type scale */
+    --type-display: 3.5rem;
+    --type-h1: 2.5rem;
+    --type-h2: 2rem;
+    --type-h3: 1.5rem;
+    --type-overline: 0.75rem;
+    --type-body-large: 1.125rem;
+    --type-body: 1rem;
+    --type-caption: 0.875rem;
 
     /* Spacing rhythm */
     --section-padding: clamp(4rem, 10vw, 8rem);
 
-    --sidebar-background: 40 15% 96%;
-    --sidebar-foreground: 30 10% 25%;
-    --sidebar-primary: 30 8% 20%;
-    --sidebar-primary-foreground: 40 20% 98%;
-    --sidebar-accent: 35 12% 90%;
-    --sidebar-accent-foreground: 30 10% 20%;
-    --sidebar-border: 35 15% 88%;
-    --sidebar-ring: 30 10% 30%;
+    /* Sidebar - match main theme */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 24 9.804% 10%;
+    --sidebar-primary: 23.39 52.212% 22.157%;
+    --sidebar-primary-foreground: 36 33.333% 97.059%;
+    --sidebar-accent: 27.273 31.429% 93.137%;
+    --sidebar-accent-foreground: 24 9.804% 10%;
+    --sidebar-border: 35 20% 88%;
+    --sidebar-ring: 23.39 52.212% 22.157%;
   }
 
   .dark {
-    --background: 30 10% 8%;
-    --foreground: 40 15% 92%;
+    --background: 24 10% 7%;
+    --foreground: 36 20% 92%;
 
-    --card: 30 10% 10%;
-    --card-foreground: 40 15% 92%;
+    --card: 24 8% 10%;
+    --card-foreground: 36 20% 92%;
 
-    --popover: 30 10% 8%;
-    --popover-foreground: 40 15% 92%;
+    --popover: 24 10% 7%;
+    --popover-foreground: 36 20% 92%;
 
-    --primary: 40 15% 92%;
-    --primary-foreground: 30 10% 10%;
+    --primary: 39 48% 56%;           /* Gold becomes primary in dark */
+    --primary-foreground: 24 10% 7%;
 
-    --secondary: 30 8% 18%;
-    --secondary-foreground: 40 15% 92%;
+    --secondary: 24 8% 15%;
+    --secondary-foreground: 36 20% 92%;
 
-    --muted: 30 8% 15%;
-    --muted-foreground: 35 10% 60%;
+    --muted: 24 8% 14%;
+    --muted-foreground: 30 10% 58%;
 
-    --accent: 30 8% 20%;
-    --accent-foreground: 40 15% 92%;
+    --accent: 23 52% 22%;
+    --accent-foreground: 36 20% 92%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 8% 18%;
-    --input: 30 8% 18%;
-    --ring: 35 10% 70%;
+    --border: 24 8% 18%;
+    --input: 24 8% 18%;
+    --ring: 39 48% 56%;
 
-    --stone: 30 6% 35%;
-    --cream: 30 8% 12%;
-    --charcoal: 40 15% 90%;
-    --warm-grey: 30 6% 65%;
-    --line-color: 30 8% 25%;
+    --stone: 39 48% 56%;
+    --cream: 24 8% 10%;
+    --charcoal: 36 20% 92%;
+    --warm-grey: 30 8% 62%;
+    --line-color: 24 8% 22%;
+    --brand-hover: #3B2212;
+    --accent-gold: #C5A059;
 
-    --sidebar-background: 30 10% 10%;
-    --sidebar-foreground: 40 15% 92%;
-    --sidebar-primary: 40 15% 92%;
-    --sidebar-primary-foreground: 30 10% 10%;
-    --sidebar-accent: 30 8% 18%;
-    --sidebar-accent-foreground: 40 15% 92%;
-    --sidebar-border: 30 8% 18%;
-    --sidebar-ring: 35 10% 70%;
+    --sidebar-background: 24 8% 10%;
+    --sidebar-foreground: 36 20% 92%;
+    --sidebar-primary: 39 48% 56%;
+    --sidebar-primary-foreground: 24 10% 7%;
+    --sidebar-accent: 24 8% 15%;
+    --sidebar-accent-foreground: 36 20% 92%;
+    --sidebar-border: 24 8% 18%;
+    --sidebar-ring: 39 48% 56%;
   }
 }
 
@@ -123,16 +138,39 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
+    font-size: var(--type-body);
+    font-weight: 400;
+    line-height: 1.5;
   }
 
-  h1,
-  h2,
-  h3,
+  h1 {
+    font-family: var(--font-serif);
+    font-size: var(--type-h1);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-size: var(--type-h2);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: var(--font-serif);
+    font-size: var(--type-h3);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
   h4,
   h5,
   h6 {
-    font-family: var(--font-serif);
-    @apply font-light tracking-tight;
+    font-family: var(--font-sans);
+    font-weight: 500;
   }
 }
 
@@ -279,6 +317,13 @@
 
   .font-sans {
     font-family: var(--font-sans);
+  }
+
+  .text-display {
+    font-size: var(--type-display);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   .text-balance {

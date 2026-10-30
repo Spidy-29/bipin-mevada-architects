@@ -51,7 +51,7 @@ const ProjectDetail = () => {
       <div className="min-h-screen bg-background relative flex flex-col">
         <Header />
         <div className="flex-1 flex flex-col items-center justify-center pt-24">
-          <h1 className="text-2xl font-serif mb-4">Project Not Found</h1>
+          <h1 className="font-serif text-h1 mb-4">Project Not Found</h1>
           <Button asChild><Link to="/portfolio">Back to Portfolio</Link></Button>
         </div>
         <Footer />
@@ -89,11 +89,11 @@ const ProjectDetail = () => {
 
         {/* Project Info */}
         <div className="container -mt-20 md:-mt-32 relative z-10">
-          <div className="bg-background/95 backdrop-blur-sm p-6 md:p-12 max-w-4xl">
-            <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          <div className="bg-card/95 backdrop-blur-sm p-6 md:p-12 max-w-4xl">
+            <span className="text-overline uppercase text-muted-foreground">
               {project.property_type || 'Project'} • {project.year}
             </span>
-            <h1 className="font-serif text-3xl md:text-5xl font-light mt-3 mb-6">
+            <h1 className="font-serif text-h1 mt-3 mb-6">
               {project.project_title}
             </h1>
             <div className="w-12 h-px bg-line mb-6" />
@@ -144,7 +144,7 @@ const ProjectDetail = () => {
             {/* Videos Section */}
             {projectAssets?.filter(a => a.asset_type === 'video').length > 0 && (
               <div className="mt-12 space-y-6">
-                <h3 className="font-serif text-2xl">Videos</h3>
+                <h3 className="font-serif text-h3">Videos</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {projectAssets.filter(a => a.asset_type === 'video').map((video) => (
                     <AssetDisplay
@@ -165,7 +165,7 @@ const ProjectDetail = () => {
             {/* PDFs Section */}
             {projectAssets?.filter(a => a.asset_type === 'pdf').length > 0 && (
               <div className="mt-12 space-y-6">
-                <h3 className="font-serif text-2xl">Documents</h3>
+                <h3 className="font-serif text-h3">Documents</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                   {projectAssets.filter(a => a.asset_type === 'pdf').map((pdf) => (
                     <AssetDisplay

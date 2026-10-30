@@ -85,7 +85,7 @@ export function Footer() {
             {COMPANY_INFO.copyright}
           </p>
           <p className="text-xs text-muted-foreground tracking-widest uppercase">
-            Architecture & Design
+            Residential Architecture & Design
           </p>
         </div>
       </div>

@@ -10,12 +10,12 @@ interface SEOProps {
 
 const SEO = ({
     title,
-    description = "Transform your space into a masterpiece with Bipin Mevada Architects. Innovative interior architecture and design solutions for residential and commercial spaces.",
-    image = "https://bipin-mevada-architects.vercel.app/images/og-image.jpg",
-    url = "https://bipin-mevada-architects.vercel.app/",
+    description = "BM Design Studio creates thoughtful homes in Ahmedabad, from budget-conscious residences to luxurious bungalows. Architecture for the way you live.",
+    image = "https://bmdesignstudio.in/images/1.jpg",
+    url = "https://bmdesignstudio.in/",
     type = "website"
 }: SEOProps) => {
-    const siteTitle = `${title} | Bipin Mevada Architects`;
+    const siteTitle = `${title} | BM Design Studio`;
 
     return (
         <Helmet>

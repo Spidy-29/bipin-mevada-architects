@@ -11,6 +11,20 @@ import { AssetSkeleton } from "@/components/AssetSkeleton";
 // Assets are loaded from public folder (Keep hero image static for now or make it dynamic if desired)
 const heroImage = "/images/1.jpg";
 const projectLiving = "/images/5.jpg";
+const frequentlyAskedQuestions = [
+  {
+    question: "What services does BM Design Studio offer?",
+    answer: "BM Design Studio specialises in residential architecture for Ahmedabad homes, from budget-conscious residences to luxurious bungalows, and supports home renovation projects.",
+  },
+  {
+    question: "Where is BM Design Studio located?",
+    answer: "BM Design Studio is located at 508, MOUNT BIZPARK, Vaishnodevi Circle, Sardar Patel Ring Rd, near Malabar Exotica, opp. Dwarkesh Opulence, Tragad, Gujarat 382470.",
+  },
+  {
+    question: "How can I contact BM Design Studio?",
+    answer: "You can reach BM Design Studio via email at bipin@bmdesignstudio.in or design@bmdesignstudio.in, WhatsApp at +91 98253-46592, or visit our office at MOUNT BIZPARK, Vaishnodevi Circle, Ahmedabad.",
+  },
+];
 
 const Index = () => {
   const { data: projects, isLoading: isLoadingProjects } = useProjects();
@@ -39,7 +53,7 @@ const Index = () => {
           <div className="absolute inset-0 z-0">
             <img
               src={heroImage}
-              alt="Modern architectural interior"
+              alt="Residential architecture by BM Design Studio in Ahmedabad"
               className="w-full h-full object-cover"
               loading="eager"
             />
@@ -50,18 +64,17 @@ const Index = () => {
           <div className="container relative z-10">
             <div className="max-w-2xl space-y-6 md:space-y-8">
               <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground opacity-0 animate-fade-up">
-                Architecture & Interior Design
+                Residential Architecture & Design
               </p>
 
-              <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-light leading-[1.1] opacity-0 animate-fade-up delay-100 uppercase">
-                Structure
+              <h1 className="font-serif text-display opacity-0 animate-fade-up delay-100 uppercase">
+                Every Plot
                 <br />
-                <span className="italic normal-case block mt-2">& Silence.</span>
+                <span className="italic normal-case block mt-2">has a Story.</span>
               </h1>
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg opacity-0 animate-fade-up delay-200">
-                We create timeless architecture and interiors that honor both
-                function and beauty, crafting spaces that inspire.
+                We specialise in residential architecture, from budget-friendly homes to luxurious bungalows — creating beautiful, functional spaces tailored to how you live.
               </p>
 
               <div className="flex flex-wrap gap-4 opacity-0 animate-fade-up delay-300">
@@ -83,10 +96,10 @@ const Index = () => {
             <div className="container">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 md:mb-14">
                 <div className="space-y-3">
-                  <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                  <span className="text-overline uppercase text-muted-foreground">
                     Featured
                   </span>
-                  <h2 className="font-serif text-2xl md:text-4xl font-light">Selected Projects</h2>
+                  <h2 className="font-serif text-h2">Selected Projects</h2>
                 </div>
                 <Link
                   to="/projects"
@@ -143,14 +156,14 @@ const Index = () => {
                           >
                             {/* Overlay container */}
                             <div className="absolute inset-0">
-                              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                               {/* Project info */}
                               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
-                                <span className="text-xs uppercase tracking-widest text-background/80 block">
+                                <span className="text-xs uppercase tracking-widest text-background block">
                                   {propertyType}
                                 </span>
-                                <h3 className="font-serif text-lg md:text-xl text-background">
+                                <h3 className="font-serif text-h3 text-background">
                                   {projectTitle}
                                 </h3>
                               </div>
@@ -171,10 +184,10 @@ const Index = () => {
           <div className="container">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 md:mb-14">
               <div className="space-y-3">
-                <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground block">
+                <span className="text-overline uppercase text-muted-foreground block">
                   Gallery
                 </span>
-                <h2 className="font-serif text-2xl md:text-4xl font-light">Visual Stories</h2>
+                <h2 className="font-serif text-h2">Visual Stories</h2>
               </div>
               <Link
                 to="/portfolio"
@@ -227,7 +240,7 @@ const Index = () => {
                 <div className="overflow-hidden">
                   <img
                     src={projectLiving}
-                    alt="Our work"
+                    alt="Residential interior designed by BM Design Studio"
                     className="w-full aspect-[4/5] object-cover"
                   />
                 </div>
@@ -235,25 +248,56 @@ const Index = () => {
               </div>
 
               <div className="space-y-6 order-1 lg:order-2">
-                <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                <span className="text-overline uppercase text-muted-foreground">
                   About Us
                 </span>
-                <h2 className="font-serif text-2xl md:text-4xl font-light">
-                  Crafting spaces with
+                <h2 className="font-serif text-h2">
+                  A home is not just four walls —
                   <br />
-                  <span className="italic">purpose & beauty</span>
+                  <span className="italic">it’s about how you live in them!</span>
                 </h2>
                 <div className="w-12 h-px bg-line" />
                 <p className="text-muted-foreground leading-relaxed">
-                  With a passion for thoughtful design, we create architecture and
-                  interiors that stand the test of time. Every project is an
-                  opportunity to craft something meaningful.
+                  We specialise in residential architecture, from budget-friendly homes to luxurious bungalows, creating beautiful and functional spaces tailored to our clients’ needs. Every plot has a story, and we’re here to help design it right.
                 </p>
                 <Button variant="architectural" asChild>
                   <Link to="/about">Learn More</Link>
                 </Button>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="section-container bg-card/40">
+          <div className="container">
+            <header className="max-w-2xl mb-8 md:mb-12">
+              <span className="text-overline uppercase text-muted-foreground">Useful Details</span>
+              <h2 className="font-serif text-h2 mt-3">Frequently asked questions</h2>
+            </header>
+            <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+              {frequentlyAskedQuestions.map(({ question, answer }) => (
+                <article key={question} className="bg-card border border-border p-6 md:p-8">
+                  <h3 className="font-serif text-h3 mb-3">{question}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{answer}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-container bg-brand text-brand-contrast">
+          <div className="container flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-10">
+            <div className="max-w-2xl space-y-3">
+              <span className="text-overline uppercase text-brand-light">Pass it along</span>
+              <h2 className="font-serif text-h2">Know someone planning to build or renovate?</h2>
+              <p className="text-body-lg">Please connect them with us. Every plot has a story, and we’re here to help design it right.</p>
+            </div>
+            <Link
+              to="/about"
+              className="inline-flex shrink-0 items-center justify-center border border-brand-contrast px-6 py-3 text-sm font-medium uppercase tracking-wide text-brand-contrast transition-colors hover:bg-brand-contrast hover:text-brand"
+            >
+              Connect with us
+            </Link>
           </div>
         </section>
       </main>

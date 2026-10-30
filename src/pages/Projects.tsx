@@ -40,10 +40,10 @@ const Projects = () => {
                 <div className="container">
                     {/* Page Header */}
                     <header className="max-w-2xl mb-10 md:mb-16">
-                        <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground block mb-3">
+                        <span className="text-overline uppercase text-muted-foreground block mb-3">
                             Projects
                         </span>
-                        <h1 className="font-serif text-3xl md:text-5xl font-light mb-4">
+                        <h1 className="font-serif text-h1 mb-4">
                             All Projects
                         </h1>
                         <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
@@ -113,14 +113,14 @@ const Projects = () => {
 
                                                     {/* Overlay container */}
                                                     <div className="absolute inset-0">
-                                                        <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                                                         {/* Project info */}
                                                         <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                                                            <span className="text-xs uppercase tracking-widest text-background/80">
+                                                            <span className="text-xs uppercase tracking-widest text-background">
                                                                 {project.property_type}
                                                             </span>
-                                                            <h3 className="font-serif text-lg md:text-xl text-background">
+                                                            <h3 className="font-serif text-h3 text-background">
                                                                 {project.project_title}
                                                             </h3>
                                                         </div>
@@ -144,7 +144,7 @@ const Projects = () => {
                                     >
                                         Previous
                                     </button>
-                                    <span className="text-sm font-light text-muted-foreground">
+                                    <span className="text-sm font-normal text-muted-foreground">
                                         Page {currentPage} of {Math.ceil(filteredProjects.length / ITEMS_PER_PAGE)}
                                     </span>
                                     <button

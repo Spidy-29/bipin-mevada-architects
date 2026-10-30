@@ -52,8 +52,8 @@ export function Header() {
           to="/"
           className="font-serif text-lg md:text-2xl tracking-tight text-foreground hover:text-muted-foreground transition-colors duration-300 uppercase"
         >
-          BIPIN MEVADA
-          <span className="block text-[0.6rem] md:text-[0.7rem] tracking-[0.2em] font-sans -mt-1 md:-mt-2">Architects</span>
+          BM DESIGN
+          <span className="block text-[0.6rem] md:text-[0.7rem] tracking-[0.2em] font-sans -mt-1 md:-mt-2">Studio</span>
         </Link>
 
         {/* Desktop Navigation */}

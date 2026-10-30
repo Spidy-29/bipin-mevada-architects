@@ -30,7 +30,7 @@ export const GOOGLE_SHEET_URLS = {
 };
 
 export const CONTACT_INFO = {
-  email: 'bipin.mevada@yahoo.com', // Placeholder
+  email: 'bipin@bmdesignstudio.in', // Placeholder
   phone: '+91 9825346592', // Placeholder
   instagram: 'https://instagram.com',
   whatsapp: 'https://wa.me/919825346592',

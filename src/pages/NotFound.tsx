@@ -19,7 +19,7 @@ const NotFound = () => {
           <div className="max-w-xl mx-auto text-center space-y-8">
             {/* 404 */}
             <div className="relative">
-              <span className="font-serif text-[10rem] md:text-[14rem] font-light leading-none text-muted">
+              <span className="font-serif text-[10rem] md:text-[14rem] font-bold leading-none text-muted">
                 404
               </span>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -29,7 +29,7 @@ const NotFound = () => {
 
             {/* Message */}
             <div className="space-y-4 -mt-12">
-              <h1 className="font-serif text-heading font-light">
+              <h1 className="font-serif text-h1">
                 Page not found
               </h1>
               <p className="text-body text-muted-foreground">
