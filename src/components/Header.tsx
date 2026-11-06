@@ -50,10 +50,17 @@ export function Header() {
         {/* Logo */}
         <Link
           to="/"
-          className="font-serif text-lg md:text-2xl tracking-tight text-foreground hover:text-muted-foreground transition-colors duration-300 uppercase"
+          className="flex items-center gap-3"
         >
-          BM DESIGN
-          <span className="block text-[0.6rem] md:text-[0.7rem] tracking-[0.2em] font-sans -mt-1 md:-mt-2">Studio</span>
+          <img
+            src="/images/logo-assets/favicons/apple-touch-icon.png"
+            alt="BM Design Studio"
+            className="w-10 h-10 md:w-12 md:h-12 object-contain"
+          />
+          <div className="flex flex-col">
+            <span className="font-serif text-lg md:text-2xl tracking-tight text-foreground hover:text-muted-foreground transition-colors duration-300 uppercase">Bipin Mevada</span>
+            <span className="block text-[0.6rem] md:text-[0.7rem] tracking-[0.2em] font-sans -mt-1 md:-mt-2">Desgin Studio</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}

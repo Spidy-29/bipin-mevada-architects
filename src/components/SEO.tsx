@@ -11,7 +11,7 @@ interface SEOProps {
 const SEO = ({
     title,
     description = "BM Design Studio creates thoughtful homes in Ahmedabad, from budget-conscious residences to luxurious bungalows. Architecture for the way you live.",
-    image = "https://bmdesignstudio.in/images/1.jpg",
+    image = "/images/logo-assets/social-media/TwitterX-Profile_400x400.png",
     url = "https://bmdesignstudio.in/",
     type = "website"
 }: SEOProps) => {
