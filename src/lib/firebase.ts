@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics, logEvent, Analytics } from "firebase/analytics";
+import { getApp, getApps, initializeApp } from "firebase/app";
+import { getAnalytics, logEvent, type Analytics } from "firebase/analytics";
 
 // Validate Firebase environment variables
 const firebaseEnvVars = {
@@ -38,14 +38,8 @@ if (!firebaseConfig.projectId) {
   throw new Error('Firebase configuration is incomplete. Missing projectId.');
 }
 
-// Initialize Firebase
-let app;
-try {
-  app = initializeApp(firebaseConfig);
-} catch (error) {
-  console.error('❌ Firebase initialization failed:', error);
-  throw error;
-}
+// Reuse the default app across Next.js server/client module reloads.
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
 // Initialize Analytics
 let analytics: Analytics | null = null;

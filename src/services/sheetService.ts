@@ -23,25 +23,16 @@ const fetchFromApi = async (): Promise<ApiResponse> => {
   if (cache) return cache;
   if (cachePromise) return cachePromise;
 
-  // Validate API configuration
-  if (!GOOGLE_SHEET_URLS.API_URL || !GOOGLE_SHEET_URLS.API_KEY) {
-    const error = new Error('API configuration is missing. Please check your environment variables.');
-    console.error('API Configuration Error:', error);
-    throw error;
-  }
-
-  const url = `${GOOGLE_SHEET_URLS.API_URL}?key=${encodeURIComponent(GOOGLE_SHEET_URLS.API_KEY)}`;
-
-  cachePromise = fetch(url)
+  cachePromise = fetch(GOOGLE_SHEET_URLS.API_URL)
     .then(async (response) => {
       if (!response.ok) {
-        throw new Error(`Failed to fetch data: ${response.statusText}`);
+        const errorBody = await response.json().catch(() => null);
+        throw new Error(errorBody?.error || `Failed to fetch data: ${response.statusText}`);
       }
       const data = await response.json();
       if (data.error) {
         throw new Error(data.error);
       }
-      console.log("api response : ",data);
       cache = data;
       return data;
     })
@@ -58,7 +49,6 @@ export const fetchAssets = async (): Promise<Asset[]> => {
   try {
     const data = await fetchFromApi();
     const assets = data.assets || [];
-    console.log("assets from  fetchAssets : ",assets)
     // Transform URLs using smart conversion based on asset type
     return assets.map(asset => {
       // Determine the asset type for URL conversion
