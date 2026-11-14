@@ -21,9 +21,9 @@ const ProjectDetail = () => {
 
   const project = projects?.find((p) => p.project_id === id);
 
-  // Get only visible/public projects for navigation
+  // Get only visible projects for navigation
   const visibleProjects = projects
-    ?.filter(p => p.visibility === 'public')
+    ?.filter(p => p.visibility)
     .sort((a, b) => a.project_id.localeCompare(b.project_id)) || [];
   const projectIds = visibleProjects.map(p => p.project_id);
   const currentIndex = id ? projectIds.indexOf(id) : -1;
@@ -99,9 +99,6 @@ const ProjectDetail = () => {
               {project.project_title}
             </h1>
             <div className="w-12 h-px bg-line mb-6" />
-            <p className="text-muted-foreground leading-relaxed text-base md:text-lg max-w-2xl">
-              {project.project_description}
-            </p>
           </div>
         </div>
 
@@ -113,7 +110,6 @@ const ProjectDetail = () => {
               {[
                 { label: "Location", value: project.location },
                 { label: "Type", value: project.property_type },
-                { label: "Space", value: project.space_type },
                 { label: "Year", value: project.year?.toString() }
               ].filter(d => d.value).map(detail => (
                 <div key={detail.label} className="border-l border-line pl-4">
@@ -152,7 +148,7 @@ const ProjectDetail = () => {
                     <AssetDisplay
                       key={video.asset_id}
                       asset={video}
-                      alt={video.title || 'Project video'}
+                      alt={video.description || 'Project video'}
                       aspectRatio="video"
                       onClick={() => {
                         setSelectedAsset(video);
@@ -173,7 +169,7 @@ const ProjectDetail = () => {
                     <AssetDisplay
                       key={pdf.asset_id}
                       asset={pdf}
-                      alt={pdf.title || 'Project document'}
+                      alt={pdf.description || 'Project document'}
                       aspectRatio="4/3"
                       onClick={() => {
                         setSelectedAsset(pdf);

@@ -24,30 +24,15 @@ const Portfolio = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Compute dynamic filters
-  const uniqueWorkCategories = Array.from(new Set(assets?.map(a => a.work_category).filter(Boolean))) as string[];
-  const hasVideo = assets?.some(a => a.asset_type === 'video');
-
-  // Helper to capitalize first letter
-  const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
-
-  const filters = [
-    "All",
-    ...uniqueWorkCategories.map(c => capitalize(c)),
-    ...(hasVideo ? ["Videos"] : [])
-  ];
+  // Portfolio filters follow the media types supplied by the API.
+  const assetTypes = Array.from(new Set(assets?.map(a => a.asset_type).filter(Boolean))) as string[];
+  const filters = ["All", ...assetTypes.map(type => type.charAt(0).toUpperCase() + type.slice(1))];
 
   const filteredItems = assets?.filter((item) => {
-    if (item.visibility === 'hidden') return false;
-
-    // Explicitly filter out PDF assets
-    if (item.asset_type === 'pdf') return false;
+    if (!item.visibility) return false;
 
     if (activeFilter === "All") return true;
-    if (activeFilter === "Videos") return item.asset_type === "video";
-
-    // Compare lowercase for work_category
-    return item.work_category?.toLowerCase() === activeFilter.toLowerCase();
+    return item.asset_type.toLowerCase() === activeFilter.toLowerCase();
   }) || [];
 
   // Sort by display order

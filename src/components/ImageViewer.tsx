@@ -117,7 +117,7 @@ const PDFViewer: React.FC<{ asset: Asset }> = ({ asset }) => {
             <iframe
                 src={pdfUrl}
                 className="w-full h-full max-w-5xl bg-white rounded-lg shadow-2xl"
-                title={asset.title || 'PDF Preview'}
+                title={asset.description || 'PDF Preview'}
                 onLoad={handleIframeLoad}
                 onError={handleIframeError}
                 style={{ display: isLoading ? 'none' : 'block' }}
@@ -220,7 +220,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ isOpen, onClose, asset }) => 
             <DialogContent className="max-w-[95vw] h-[90vh] p-0 bg-card/95 border-none shadow-none flex flex-col justify-center items-center overflow-hidden">
                 {/* Helper for Screen readers */}
                 <DialogTitle className="sr-only">
-                    Image Preview: {asset.title || 'Portfolio Image'}
+                    Image Preview: {asset.description || 'Portfolio Image'}
                 </DialogTitle>
 
                 {/* Controls */}
@@ -255,7 +255,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ isOpen, onClose, asset }) => 
                                     <iframe
                                         src={videoUrl}
                                         className="w-full h-full max-w-5xl aspect-video bg-black rounded-lg shadow-2xl"
-                                        title={asset.title || 'Video Preview'}
+                                        title={asset.description || 'Video Preview'}
                                         allowFullScreen
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     ></iframe>
@@ -287,7 +287,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ isOpen, onClose, asset }) => 
                             ) : (
                                 <motion.img
                                     src={currentSrc}
-                                    alt={asset.title || asset.asset_id}
+                                    alt={asset.description || String(asset.asset_id)}
                                     className="max-h-full max-w-full object-contain transition-opacity duration-300"
                                     style={{ opacity: isLoading ? 0 : 1 }}
                                     drag={scale > 1}
@@ -310,10 +310,10 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ isOpen, onClose, asset }) => 
                     )}
                 </div>
 
-                {asset.title && (
+                {asset.description && (
                     <div className="absolute bottom-8 left-0 right-0 text-center pointer-events-none z-10">
                         <span className="inline-block bg-background/80 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium border border-white/10">
-                            {asset.title}
+                            {asset.description}
                         </span>
                     </div>
                 )}

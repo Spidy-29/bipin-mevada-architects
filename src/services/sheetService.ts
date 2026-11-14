@@ -1,16 +1,9 @@
 
-import { Asset, Project } from '../types/cms';
+import { ApiResponse, Asset, Project } from '../types/cms';
 import { GOOGLE_SHEET_URLS } from '../lib/constants';
-import { convertDriveUrlByType } from '../lib/driveUtils';
+import { convertAssetUrlByType } from '../lib/driveUtils';
 
-interface ApiResponse {
-  assets: Asset[];
-  projects: Project[];
-  meta: {
-    generated_at: string;
-    asset_count: number;
-    project_count: number;
-  };
+interface ApiErrorResponse {
   error?: string;
   message?: string;
 }
@@ -26,10 +19,10 @@ const fetchFromApi = async (): Promise<ApiResponse> => {
   cachePromise = fetch(GOOGLE_SHEET_URLS.API_URL)
     .then(async (response) => {
       if (!response.ok) {
-        const errorBody = await response.json().catch(() => null);
+        const errorBody = await response.json().catch(() => null) as ApiErrorResponse | null;
         throw new Error(errorBody?.error || `Failed to fetch data: ${response.statusText}`);
       }
-      const data = await response.json();
+      const data = await response.json() as ApiResponse & ApiErrorResponse;
       if (data.error) {
         throw new Error(data.error);
       }
@@ -59,9 +52,9 @@ export const fetchAssets = async (): Promise<Asset[]> => {
       return {
         ...asset,
         // Convert main asset URL based on type
-        asset_url: convertDriveUrlByType(asset.asset_url, assetType),
+        asset_url: convertAssetUrlByType(asset.asset_url, assetType),
         // Convert thumbnail URL (always treat as image)
-        thumbnail_url: convertDriveUrlByType(asset.thumbnail_url, 'image')
+        thumbnail_url: convertAssetUrlByType(asset.thumbnail_url, 'image')
       };
     });
   } catch (error) {

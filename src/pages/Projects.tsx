@@ -25,7 +25,7 @@ const Projects = () => {
     const allFilters = ["All", ...Array.from(new Set(projects?.map((p) => p.property_type).filter(Boolean)))];
 
     const filteredProjects = projects?.filter((project) => {
-        if (project.visibility === 'hidden') return false;
+        if (!project.visibility) return false;
 
         if (activeFilter === "All") return true;
         return project.property_type === activeFilter;
@@ -85,9 +85,9 @@ const Projects = () => {
                                     .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
                                     .map((project, index) => {
                                         // Find the first image asset for this project
-                                        const projectAsset = assets?.find(
-                                            (a) => a.project_id === project.project_id && a.asset_type === "image"
-                                        );
+                                        const projectAsset = assets
+                                            ?.filter((a) => a.project_id === project.project_id && a.asset_type === "image" && a.visibility)
+                                            .sort((a, b) => (a.display_order ?? Number.MAX_SAFE_INTEGER) - (b.display_order ?? Number.MAX_SAFE_INTEGER))[0];
 
                                         if (!projectAsset) return null; // Skip if no image found
 

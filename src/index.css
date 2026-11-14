@@ -338,6 +338,25 @@
 
 @layer utilities {
 
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .featured-project-card {
+    flex: 0 0 calc((100% - 0.75rem) / 2);
+  }
+
+  @screen md {
+    .featured-project-card {
+      flex-basis: calc((100% - 3rem) / 4);
+    }
+  }
+
   /* Custom animations */
   .animate-fade-up {
     animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;

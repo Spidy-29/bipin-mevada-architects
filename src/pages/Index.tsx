@@ -30,17 +30,8 @@ const Index = () => {
   const { data: projects, isLoading: isLoadingProjects } = useProjects();
   const { data: assets, isLoading: isLoadingAssets } = useAssets();
 
-  // Robust check for is_featured, handling boolean, string "true", or number 1
-  // Robust check for is_featured, handling boolean, string "true"/"TRUE", or number 1
-  const isFeatured = (val: any) => {
-    if (val === true) return true;
-    if (val === 1) return true;
-    if (typeof val === 'string') return val.toLowerCase() === 'true';
-    return false;
-  };
-
-  const featuredProjects = projects?.filter(p => isFeatured(p.is_featured) || isFeatured((p as any).isFeatured)).slice(0, 4) || [];
-  const featuredAssets = assets?.filter(a => isFeatured(a.is_featured) || isFeatured((a as any).isFeatured)).slice(0, 8) || [];
+  const featuredProjects = projects?.filter(p => p.is_featured === true).sort((a, b) => (a.display_order ?? Number.MAX_SAFE_INTEGER) - (b.display_order ?? Number.MAX_SAFE_INTEGER)).slice(0, 8) || [];
+  const galleryAssets = assets?.filter(a => a.visibility && a.asset_type === 'image').slice(0, 4) || [];
 
   return (
     <div className="min-h-screen bg-background relative">
@@ -91,15 +82,14 @@ const Index = () => {
 
 
         {/* Featured Projects */}
-        {!isLoadingProjects && featuredProjects.length === 0 ? null : (
-          <section className="section-container bg-background/30 backdrop-blur-[2px]">
+          <section className="py-16 md:py-24">
             <div className="container">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 md:mb-14">
                 <div className="space-y-3">
                   <span className="text-overline uppercase text-muted-foreground">
                     Featured
                   </span>
-                  <h2 className="font-serif text-h2">Selected Projects</h2>
+                  <h2 className="font-serif text-h2">Projects</h2>
                 </div>
                 <Link
                   href="/projects"
@@ -111,27 +101,22 @@ const Index = () => {
                 </Link>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              <div className="scrollbar-none flex flex-nowrap gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory -mx-4 px-4 pb-2 md:mx-0 md:px-0">
                 {/* Dynamic Featured Projects */}
                 {isLoadingProjects ? (
                   <>
-                    <div className="bg-muted/30 rounded-sm overflow-hidden aspect-[4/3]"><AssetSkeleton aspectRatio="4/3" className="w-full h-full" /></div>
-                    <div className="bg-muted/30 rounded-sm overflow-hidden aspect-[4/3]"><AssetSkeleton aspectRatio="4/3" className="w-full h-full" /></div>
+                    <div className="featured-project-card snap-start"><AssetSkeleton aspectRatio="square" className="w-full" /></div>
+                    <div className="featured-project-card snap-start"><AssetSkeleton aspectRatio="square" className="w-full" /></div>
                   </>
                 ) : (
                   featuredProjects.map((project, index) => {
                     // Handle potential field mismatch from API due to recent refactors
-                    const projectId = project.project_id || (project as any).id;
-                    const projectTitle = project.project_title || (project as any).title;
-                    const propertyType = project.property_type || (project as any).propertyType;
+                    const projectId = String(project.project_id).trim();
+                    const projectTitle = project.project_title;
 
-                    // Find the first image asset for this project
-                    const projectAsset = assets?.find(a => {
-                      const assetProjectId = a.project_id || (a as any).projectId;
-                      const assetType = a.asset_type || (a as any).type;
-                      // Loose equality check for ID in case of string vs number
-                      return assetProjectId == projectId && assetType === 'image';
-                    });
+                    const projectAsset = assets
+                      ?.filter(a => String(a.project_id ?? '').trim() === projectId && a.asset_type?.trim().toLowerCase() === 'image')
+                      .sort((a, b) => (a.display_order ?? Number.MAX_SAFE_INTEGER) - (b.display_order ?? Number.MAX_SAFE_INTEGER))[0];
 
                     if (!projectAsset) {
                       // Skip rendering this project if no valid cover image
@@ -143,14 +128,14 @@ const Index = () => {
                         key={projectId}
                         href={`/project/${projectId}`}
                         onClick={() => window.scrollTo(0, 0)}
-                        className="group block opacity-0 animate-fade-up"
+                        className="featured-project-card group block opacity-0 animate-fade-up snap-start"
                         style={{ animationDelay: `${index * 100}ms`, animationFillMode: "forwards" }}
                       >
                         <div className="relative bg-muted/30 rounded-sm overflow-hidden">
                           <AssetDisplay
                             asset={projectAsset}
                             alt={projectTitle}
-                            aspectRatio="4/3"
+                            aspectRatio="square"
                             className="transition-transform duration-700 group-hover:scale-105"
                             showTypeIcon={false}
                           >
@@ -161,7 +146,7 @@ const Index = () => {
                               {/* Project info */}
                               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
                                 <span className="text-xs uppercase tracking-widest text-background block">
-                                  {propertyType}
+                                  {project.property_type}
                                 </span>
                                 <h3 className="font-serif text-h3 text-background">
                                   {projectTitle}
@@ -177,7 +162,6 @@ const Index = () => {
               </div>
             </div>
           </section>
-        )}
 
         {/* Gallery Preview */}
         <section className="section-container bg-card/30 backdrop-blur-[2px]">
@@ -207,9 +191,8 @@ const Index = () => {
                   ))}
                 </>
               ) : (
-                // Limit to 4 items
-                featuredAssets.slice(0, 4).map((item, index) => {
-                  const itemId = item.asset_id || (item as any).id;
+                galleryAssets.map((item, index) => {
+                  const itemId = item.asset_id;
                   return (
                     <Link
                       key={itemId}

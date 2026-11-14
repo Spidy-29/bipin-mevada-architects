@@ -22,7 +22,7 @@ export const AssetCard = ({ asset, index, onClick, priority = false }: AssetCard
             <div className="relative bg-muted/30 rounded-sm overflow-hidden">
                 <AssetDisplay
                     asset={asset}
-                    alt={asset.title}
+                    alt={asset.description}
                     aspectRatio={aspectRatio}
                     className="transition-transform duration-700 group-hover:scale-105"
                     showOverlay={true}
@@ -32,9 +32,9 @@ export const AssetCard = ({ asset, index, onClick, priority = false }: AssetCard
                     {/* Hover overlay with info */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-foreground/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
                         <span className="text-xs uppercase tracking-widest text-background/70 block">
-                            {asset.work_category} {asset.year ? `• ${asset.year}` : ''}
+                            {asset.labels?.join(' • ')}
                         </span>
-                        <h3 className="font-serif text-h3 text-background">{asset.title}</h3>
+                        {asset.description && <h3 className="font-serif text-h3 text-background">{asset.description}</h3>}
 
                         {/* Show View Project button if asset belongs to a project */}
                         {asset.project_id && (
