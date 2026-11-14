@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { SOCIAL_LINKS, COMPANY_INFO } from "@/constants/contact";
 
 export function Footer() {
@@ -8,9 +8,18 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-10 md:gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <Link to="/" className="font-serif text-xl md:text-2xl tracking-tight text-foreground uppercase">
-              {COMPANY_INFO.name}
-              <span className="block text-[0.6rem] md:text-[0.7rem] tracking-[0.2em] font-sans -mt-1 md:-mt-2">{COMPANY_INFO.subtitle}</span>
+            <Link href="/" className="inline-flex items-center gap-3 text-foreground" aria-label="BM Design Studio home">
+              <img
+                src="/images/logo-assets/favicons/apple-touch-icon.png"
+                alt=""
+                aria-hidden="true"
+                className="h-20 w-20 md:h-24 md:w-24 shrink-0 object-contain"
+              />
+              <span className="flex flex-col justify-between font-serif font-medium text-md md:text-xl tracking-wide leading-none">
+                <span>BM</span>
+                <span>Design</span>
+                <span>Studio</span>
+              </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               {COMPANY_INFO.tagline}
@@ -19,30 +28,30 @@ export function Footer() {
 
           {/* Navigation */}
           <div className="space-y-4">
-            <h4 className="text-sm uppercase tracking-widest text-muted-foreground font-sans">
+            <h4 className="text-sm uppercase tracking-widest text-muted-foreground font-serif font-medium">
               Explore
             </h4>
             <nav className="flex flex-col gap-3">
               <Link
-                to="/"
+                href="/"
                 className="text-sm text-foreground/80 hover:text-foreground transition-colors"
               >
                 Home
               </Link>
               <Link
-                to="/projects"
+                href="/projects"
                 className="text-sm text-foreground/80 hover:text-foreground transition-colors"
               >
                 Projects
               </Link>
               <Link
-                to="/portfolio"
+                href="/portfolio"
                 className="text-sm text-foreground/80 hover:text-foreground transition-colors"
               >
                 Portfolio
               </Link>
               <Link
-                to="/about"
+                href="/about"
                 className="text-sm text-foreground/80 hover:text-foreground transition-colors"
               >
                 About & Contact
@@ -52,7 +61,7 @@ export function Footer() {
 
           {/* Social */}
           <div className="space-y-4">
-            <h4 className="text-sm uppercase tracking-widest text-muted-foreground font-sans">
+            <h4 className="text-sm uppercase tracking-widest text-muted-foreground font-serif font-medium">
               Connect
             </h4>
             <div className="flex gap-3">
@@ -85,7 +94,7 @@ export function Footer() {
             {COMPANY_INFO.copyright}
           </p>
           <p className="text-xs text-muted-foreground tracking-widest uppercase">
-            Architecture & Design
+            Residential Architecture & Design
           </p>
         </div>
       </div>

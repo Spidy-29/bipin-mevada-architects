@@ -117,7 +117,7 @@ const PDFViewer: React.FC<{ asset: Asset }> = ({ asset }) => {
             <iframe
                 src={pdfUrl}
                 className="w-full h-full max-w-5xl bg-white rounded-lg shadow-2xl"
-                title={asset.title || 'PDF Preview'}
+                title={asset.description || 'PDF Preview'}
                 onLoad={handleIframeLoad}
                 onError={handleIframeError}
                 style={{ display: isLoading ? 'none' : 'block' }}
@@ -217,10 +217,10 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ isOpen, onClose, asset }) => 
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="max-w-[95vw] h-[90vh] p-0 bg-background/95 border-none shadow-none flex flex-col justify-center items-center overflow-hidden">
+            <DialogContent className="max-w-[95vw] h-[90vh] p-0 bg-card/95 border-none shadow-none flex flex-col justify-center items-center overflow-hidden">
                 {/* Helper for Screen readers */}
                 <DialogTitle className="sr-only">
-                    Image Preview: {asset.title || 'Portfolio Image'}
+                    Image Preview: {asset.description || 'Portfolio Image'}
                 </DialogTitle>
 
                 {/* Controls */}
@@ -255,7 +255,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ isOpen, onClose, asset }) => 
                                     <iframe
                                         src={videoUrl}
                                         className="w-full h-full max-w-5xl aspect-video bg-black rounded-lg shadow-2xl"
-                                        title={asset.title || 'Video Preview'}
+                                        title={asset.description || 'Video Preview'}
                                         allowFullScreen
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     ></iframe>
@@ -282,12 +282,12 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ isOpen, onClose, asset }) => 
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                     <p className="text-muted-foreground">Failed to load image</p>
-                                    <p className="text-sm text-muted-foreground/70 mt-2">The image file may not be accessible</p>
+                                    <p className="text-sm text-muted-foreground mt-2">The image file may not be accessible</p>
                                 </div>
                             ) : (
                                 <motion.img
                                     src={currentSrc}
-                                    alt={asset.title || asset.asset_id}
+                                    alt={asset.description || String(asset.asset_id)}
                                     className="max-h-full max-w-full object-contain transition-opacity duration-300"
                                     style={{ opacity: isLoading ? 0 : 1 }}
                                     drag={scale > 1}
@@ -310,10 +310,10 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ isOpen, onClose, asset }) => 
                     )}
                 </div>
 
-                {asset.title && (
+                {asset.description && (
                     <div className="absolute bottom-8 left-0 right-0 text-center pointer-events-none z-10">
                         <span className="inline-block bg-background/80 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium border border-white/10">
-                            {asset.title}
+                            {asset.description}
                         </span>
                     </div>
                 )}

@@ -18,23 +18,23 @@ export interface ContactInfo {
 
 // Social Media Links
 export const SOCIAL_LINKS: SocialLink[] = [
-  { 
-    icon: MessageCircle, 
-    href: "https://wa.me/919825346592", 
-    label: "WhatsApp", 
-    value: "+91 98253-46592" 
+  {
+    icon: MessageCircle,
+    href: "https://wa.me/919825346592",
+    label: "WhatsApp",
+    value: "+91 98253-46592",
   },
-  { 
-    icon: Instagram, 
-    href: "https://instagram.com/bipin_mevada_architects/", 
-    label: "Instagram", 
-    value: "@bipinmevada" 
+  {
+    icon: Instagram,
+    href: "https://instagram.com/bipin_mevada_architects/",
+    label: "Instagram",
+    value: "@bipin_mevada_architects",
   },
-  // { 
-  //   icon: Facebook, 
-  //   href: "https://facebook.com", 
-  //   label: "Facebook", 
-  //   value: "Bipin Mevada Architects" 
+  // {
+  //   icon: Facebook,
+  //   href: "https://facebook.com",
+  //   label: "Facebook",
+  //   value: "Bipin Mevada Architects"
   // },
 ];
 
@@ -43,22 +43,29 @@ export const CONTACT_INFO = {
   email: {
     type: "email" as const,
     icon: Mail,
-    label: "Email",
-    value: "bipin.mevada@yahoo.com",
-    href: "mailto:bipin.mevada@yahoo.com",
+    label: "Principal Architect",
+    value: "bipin@bmdesignstudio.in",
+    href: "mailto:bipin@bmdesignstudio.in",
+  },
+  emailSecondary: {
+    type: "email" as const,
+    icon: Mail,
+    label: "Studio Inquiry",
+    value: "design@bmdesignstudio.in",
+    href: "mailto:design@bmdesignstudio.in",
   },
   location: {
     type: "location" as const,
     icon: MapPin,
     label: "Studio",
-    value: "119, Ellisbridge Shopping Center, Ahmedabad, Gujarat, India",
+    value: "508, MOUNT BIZPARK, Vaishnodevi Circle, Sardar Patel Ring Rd, Tragad, Gujarat 382470",
   },
 };
 
 // Company Information
 export const COMPANY_INFO = {
-  name: "BIPIN MEVADA",
-  subtitle: "Architects",
-  tagline: "We define architecture not by what is added, but by the space that is created.",
-  copyright: `© ${new Date().getFullYear()} Bipin Mevada Architects. All rights reserved.`,
+  name: "BM DESIGN",
+  subtitle: "Studio",
+  tagline: "Every plot has a story, and we’re here to help design it right.",
+  copyright: `© ${new Date().getFullYear()} BM Design Studio. All rights reserved.`,
 };

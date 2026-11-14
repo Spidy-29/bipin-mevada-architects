@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useRouter } from "next/router";
 import { logAnalyticsEvent } from "../lib/firebase";
 
 const AnalyticsTracker = () => {
-    const location = useLocation();
+    const router = useRouter();
 
     useEffect(() => {
         // Log page view
         logAnalyticsEvent("page_view", {
-            page_path: location.pathname + location.search,
+            page_path: router.asPath,
             page_title: document.title,
         });
-    }, [location]);
+    }, [router.asPath]);
 
     return null;
 };

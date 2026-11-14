@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useProjects } from "@/hooks/useContent";
@@ -15,7 +16,7 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { data: projects, isLoading } = useProjects();
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +28,7 @@ export function Header() {
 
   useEffect(() => {
     setIsOpen(false);
-  }, [location]);
+  }, [router.asPath]);
 
   // Filter out Projects link if no projects available
   const filteredLinks = NAV_LINKS.filter(link => {
@@ -48,23 +49,30 @@ export function Header() {
     >
       <div className="container flex items-center justify-between">
         {/* Logo */}
-        <Link
-          to="/"
-          className="font-serif text-lg md:text-2xl tracking-tight text-foreground hover:text-muted-foreground transition-colors duration-300 uppercase"
-        >
-          BIPIN MEVADA
-          <span className="block text-[0.6rem] md:text-[0.7rem] tracking-[0.2em] font-sans -mt-1 md:-mt-2">Architects</span>
-        </Link>
+        <div className="font-serif font-medium text-base md:text-lg tracking-wide leading-tight text-foreground">
+          <Link href="/" className="flex">
+            <img
+                  src="/images/logo-assets/favicons/apple-touch-icon.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-10 w-10 md:h-16 md:w-16 shrink-0 object-contain"
+                />
+            <div className="flex flex-col m-auto p-auto">
+              <span>BM Design</span>
+              <span>Studio</span>
+            </div>
+          </Link>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {filteredLinks.map((link) => (
             <Link
               key={link.href}
-              to={link.href}
+              href={link.href}
               className={cn(
-                "nav-link text-sm uppercase tracking-widest transition-colors duration-300 pb-1",
-                location.pathname === link.href
+                "nav-link font-medium text-sm uppercase tracking-widest transition-colors duration-300 pb-1 font-serif",
+                router.pathname === link.href
                   ? "text-foreground"
                   : "text-foreground/60 hover:text-foreground"
               )}
@@ -95,10 +103,10 @@ export function Header() {
           {filteredLinks.map((link, index) => (
             <Link
               key={link.href}
-              to={link.href}
+              href={link.href}
               className={cn(
                 "font-serif text-2xl transition-all duration-300",
-                location.pathname === link.href
+                router.pathname === link.href
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
                 isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"

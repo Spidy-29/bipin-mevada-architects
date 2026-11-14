@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -24,30 +24,15 @@ const Portfolio = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Compute dynamic filters
-  const uniqueWorkCategories = Array.from(new Set(assets?.map(a => a.work_category).filter(Boolean))) as string[];
-  const hasVideo = assets?.some(a => a.asset_type === 'video');
-
-  // Helper to capitalize first letter
-  const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
-
-  const filters = [
-    "All",
-    ...uniqueWorkCategories.map(c => capitalize(c)),
-    ...(hasVideo ? ["Videos"] : [])
-  ];
+  // Portfolio filters follow the media types supplied by the API.
+  const assetTypes = Array.from(new Set(assets?.map(a => a.asset_type).filter(Boolean))) as string[];
+  const filters = ["All", ...assetTypes.map(type => type.charAt(0).toUpperCase() + type.slice(1))];
 
   const filteredItems = assets?.filter((item) => {
-    if (item.visibility === 'hidden') return false;
-
-    // Explicitly filter out PDF assets
-    if (item.asset_type === 'pdf') return false;
+    if (!item.visibility) return false;
 
     if (activeFilter === "All") return true;
-    if (activeFilter === "Videos") return item.asset_type === "video";
-
-    // Compare lowercase for work_category
-    return item.work_category?.toLowerCase() === activeFilter.toLowerCase();
+    return item.asset_type.toLowerCase() === activeFilter.toLowerCase();
   }) || [];
 
   // Sort by display order
@@ -61,10 +46,10 @@ const Portfolio = () => {
         <div className="container">
           {/* Page Header */}
           <header className="max-w-2xl mb-10 md:mb-16">
-            <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground block mb-3">
+            <span className="text-overline uppercase text-muted-foreground block mb-3">
               Portfolio
             </span>
-            <h1 className="font-serif text-3xl md:text-5xl font-light mb-4">
+            <h1 className="font-serif text-h1 mb-4">
               Our Work
             </h1>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
@@ -74,7 +59,7 @@ const Portfolio = () => {
           </header>
 
           {/* Filters */}
-          <div className="flex flex-wrap gap-3 md:gap-4 mb-8 md:mb-12 pb-6 border-b border-border">
+          <div className="flex flex-wrap gap-3 md:gap-4 mb-8 md:mb-12 pb-6 border-b border-border font-serif font-medium">
             {filters.map((filter) => (
               <button
                 key={filter}
@@ -145,7 +130,7 @@ const Portfolio = () => {
                   >
                     Previous
                   </button>
-                  <span className="text-sm font-light text-muted-foreground">
+                  <span className="text-sm font-normal text-muted-foreground">
                     Page {currentPage} of {Math.ceil(sortedItems.length / ITEMS_PER_PAGE)}
                   </span>
                   <button

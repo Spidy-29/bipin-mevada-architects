@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
@@ -12,16 +13,17 @@ import { Asset } from "@/types/cms";
 import { logAnalyticsEvent } from "@/lib/firebase";
 
 const ProjectDetail = () => {
-  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
+  const id = router.query.id as string | undefined;
   const { data: projects, isLoading: isLoadingProject } = useProjects();
   const { data: projectAssets, isLoading: isLoadingAssets } = useProjectAssets(id || "");
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
 
   const project = projects?.find((p) => p.project_id === id);
 
-  // Get only visible/public projects for navigation
+  // Get only visible projects for navigation
   const visibleProjects = projects
-    ?.filter(p => p.visibility === 'public')
+    ?.filter(p => p.visibility)
     .sort((a, b) => a.project_id.localeCompare(b.project_id)) || [];
   const projectIds = visibleProjects.map(p => p.project_id);
   const currentIndex = id ? projectIds.indexOf(id) : -1;
@@ -51,8 +53,8 @@ const ProjectDetail = () => {
       <div className="min-h-screen bg-background relative flex flex-col">
         <Header />
         <div className="flex-1 flex flex-col items-center justify-center pt-24">
-          <h1 className="text-2xl font-serif mb-4">Project Not Found</h1>
-          <Button asChild><Link to="/portfolio">Back to Portfolio</Link></Button>
+          <h1 className="font-serif text-h1 mb-4">Project Not Found</h1>
+          <Button asChild><Link href="/portfolio">Back to Portfolio</Link></Button>
         </div>
         <Footer />
       </div>
@@ -89,17 +91,14 @@ const ProjectDetail = () => {
 
         {/* Project Info */}
         <div className="container -mt-20 md:-mt-32 relative z-10">
-          <div className="bg-background/95 backdrop-blur-sm p-6 md:p-12 max-w-4xl">
-            <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          <div className="bg-card/95 backdrop-blur-sm p-6 md:p-12 max-w-4xl">
+            <span className="text-overline uppercase text-muted-foreground">
               {project.property_type || 'Project'} • {project.year}
             </span>
-            <h1 className="font-serif text-3xl md:text-5xl font-light mt-3 mb-6">
+            <h1 className="font-serif text-h1 mt-3 mb-6">
               {project.project_title}
             </h1>
             <div className="w-12 h-px bg-line mb-6" />
-            <p className="text-muted-foreground leading-relaxed text-base md:text-lg max-w-2xl">
-              {project.project_description}
-            </p>
           </div>
         </div>
 
@@ -111,7 +110,6 @@ const ProjectDetail = () => {
               {[
                 { label: "Location", value: project.location },
                 { label: "Type", value: project.property_type },
-                { label: "Space", value: project.space_type },
                 { label: "Year", value: project.year?.toString() }
               ].filter(d => d.value).map(detail => (
                 <div key={detail.label} className="border-l border-line pl-4">
@@ -144,13 +142,13 @@ const ProjectDetail = () => {
             {/* Videos Section */}
             {projectAssets?.filter(a => a.asset_type === 'video').length > 0 && (
               <div className="mt-12 space-y-6">
-                <h3 className="font-serif text-2xl">Videos</h3>
+                <h3 className="font-serif text-h3">Videos</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {projectAssets.filter(a => a.asset_type === 'video').map((video) => (
                     <AssetDisplay
                       key={video.asset_id}
                       asset={video}
-                      alt={video.title || 'Project video'}
+                      alt={video.description || 'Project video'}
                       aspectRatio="video"
                       onClick={() => {
                         setSelectedAsset(video);
@@ -165,13 +163,13 @@ const ProjectDetail = () => {
             {/* PDFs Section */}
             {projectAssets?.filter(a => a.asset_type === 'pdf').length > 0 && (
               <div className="mt-12 space-y-6">
-                <h3 className="font-serif text-2xl">Documents</h3>
+                <h3 className="font-serif text-h3">Documents</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                   {projectAssets.filter(a => a.asset_type === 'pdf').map((pdf) => (
                     <AssetDisplay
                       key={pdf.asset_id}
                       asset={pdf}
-                      alt={pdf.title || 'Project document'}
+                      alt={pdf.description || 'Project document'}
                       aspectRatio="4/3"
                       onClick={() => {
                         setSelectedAsset(pdf);
@@ -191,7 +189,7 @@ const ProjectDetail = () => {
             <div className="flex justify-between items-center">
               {prevProject ? (
                 <Link
-                  to={`/project/${prevProject.project_id}`}
+                  href={`/project/${prevProject.project_id}`}
                   className="group flex flex-col gap-1 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <div className="flex items-center gap-2">
@@ -207,12 +205,12 @@ const ProjectDetail = () => {
               )}
 
               <Button variant="minimal" asChild>
-                <Link to="/projects" onClick={() => window.scrollTo(0, 0)}>All Projects</Link>
+                <Link href="/projects" onClick={() => window.scrollTo(0, 0)}>All Projects</Link>
               </Button>
 
               {nextProject ? (
                 <Link
-                  to={`/project/${nextProject.project_id}`}
+                  href={`/project/${nextProject.project_id}`}
                   className="group flex flex-col gap-1 text-muted-foreground hover:text-foreground transition-colors text-right"
                 >
                   <div className="flex items-center gap-2 justify-end">

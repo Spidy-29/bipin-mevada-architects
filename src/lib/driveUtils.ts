@@ -192,6 +192,66 @@ export const convertDriveUrlByType = (
   }
 };
 
+/** Build a public Storage URL from either a full URL or a bucket object path. */
+export const getSupabasePublicUrl = (value: string | undefined): string => {
+  if (!value) return '';
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '');
+  const defaultBucket = process.env.NEXT_PUBLIC_SUPABASE_BUCKET || 'public-media';
+  const input = value.trim();
+
+  // Full Supabase URLs are already public URL values; convert signed object
+  // paths to the public form so public buckets don't rely on expiring tokens.
+  if (/^https?:\/\//i.test(input)) {
+    try {
+      const parsed = new URL(input);
+      if (!parsed.hostname.toLowerCase().includes('supabase')) return input;
+      parsed.pathname = parsed.pathname
+        .replace('/storage/v1/object/sign/', '/storage/v1/object/public/')
+        .replace('/storage/v1/object/authenticated/', '/storage/v1/object/public/');
+      parsed.searchParams.delete('token');
+      return parsed.toString();
+    } catch {
+      return input;
+    }
+  }
+
+  if (!supabaseUrl) return input;
+
+  // Also accept supabase://bucket/path and bucket/path values from the sheet.
+  const hasExplicitBucket = /^supabase:\/\//i.test(input);
+  const objectPath = input.replace(/^supabase:\/\//i, '').replace(/^\/+/, '');
+  const firstSlash = objectPath.indexOf('/');
+  const usesExplicitBucket = hasExplicitBucket && firstSlash > 0;
+  const bucket = usesExplicitBucket ? objectPath.slice(0, firstSlash) : defaultBucket;
+  const path = usesExplicitBucket ? objectPath.slice(firstSlash + 1) : objectPath;
+  const encodedPath = path.split('/').map(segment => encodeURIComponent(decodeURIComponentSafe(segment))).join('/');
+
+  return `${supabaseUrl}/storage/v1/object/public/${encodeURIComponent(bucket)}/${encodedPath}`;
+};
+
+const decodeURIComponentSafe = (value: string): string => {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+};
+
+/** Resolve Supabase URLs/paths; convert Google Drive links as before. */
+export const convertAssetUrlByType = (
+  url: string | undefined,
+  assetType: 'image' | 'video' | 'pdf' | 'other' = 'image'
+): string => {
+  if (url?.toLowerCase().includes('supabase') || url?.startsWith('supabase://')) {
+    return getSupabasePublicUrl(url);
+  }
+  if (url && !/^https?:\/\//i.test(url) && process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    return getSupabasePublicUrl(url);
+  }
+  return convertDriveUrlByType(url, assetType);
+};
+
 /**
  * Get all URL format variations for fallback purposes
  * Returns an array of different URL formats to try

@@ -6,7 +6,7 @@
 **Problem**: Navigation was using simple array indexing without checking if projects actually exist in the API response.
 
 **Solution**:
-- Filter only `visible: 'public'` projects for navigation
+- Filter only `visible: true` projects for navigation
 - Verify that prev/next projects actually exist in the API response
 - Use actual project objects instead of just IDs
 - Display project titles on hover for better UX
@@ -14,7 +14,7 @@
 **Code Changes**:
 ```tsx
 // Get only visible/public projects for navigation
-const visibleProjects = projects?.filter(p => p.visibility === 'public') || [];
+const visibleProjects = projects?.filter(p => p.visibility) || [];
 const projectIds = visibleProjects.map(p => p.project_id);
 const currentIndex = id ? projectIds.indexOf(id) : -1;
 
@@ -131,7 +131,7 @@ useEffect(() => {
 
 ### Dependencies:
 - `react` (useEffect)
-- `react-router-dom` (useParams, Link)
+- `next/router` and `next/link`
 - Existing hooks: `useProjects`, `useProjectAssets`
 
 ---

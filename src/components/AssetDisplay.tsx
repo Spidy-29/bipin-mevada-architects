@@ -59,7 +59,7 @@ export const AssetDisplay = ({
             {/* Image/Thumbnail */}
             <OptimizedImage
                 src={asset.thumbnail_url || asset.asset_url}
-                alt={alt || asset.title || 'Asset'}
+                alt={alt || asset.description || 'Asset'}
                 aspectRatio={aspectRatio}
                 className="transition-transform duration-700 group-hover:scale-105"
                 assetType={effectiveType as any}

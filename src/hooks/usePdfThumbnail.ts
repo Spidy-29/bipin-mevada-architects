@@ -1,11 +1,4 @@
 import { useState, useEffect } from 'react';
-import * as pdfjsLib from 'pdfjs-dist';
-
-// Configure worker
-// Note: In a Vite environment, we need to point to the worker file correctly.
-// We use a CDN url for simplicity and reliability across different build setups,
-// effectively making this a "server-side" like resource fetch.
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 export const usePdfThumbnail = (url: string | undefined) => {
     const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
@@ -25,6 +18,12 @@ export const usePdfThumbnail = (url: string | undefined) => {
             setError(null);
 
             try {
+                // PDF.js reads browser APIs such as DOMMatrix during module setup.
+                // Import it only from this effect so Next.js never evaluates it on the server.
+                const pdfjsLib = await import('pdfjs-dist');
+                if (isCancelled) return;
+                pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+
                 // Determine if we can use this URL
                 // PDF.js needs to be able to fetch the file (CORS)
                 
@@ -52,6 +51,7 @@ export const usePdfThumbnail = (url: string | undefined) => {
 
                 // Render page to canvas
                 const renderContext = {
+                    canvas,
                     canvasContext: context,
                     viewport: viewport,
                 };

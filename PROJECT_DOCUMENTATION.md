@@ -28,8 +28,8 @@
 ### Core Frameworks
 | Technology | Description |
 |------------|-------------|
-| **React** | v18.3.1 - UI Library |
-| **Vite** | v5.4 - Build Tool & Dev Server |
+| **Next.js** | v16 - React framework and page routing |
+| **React** | v19 - UI Library |
 | **TypeScript** | v5.8 - Static Typing |
 | **Tailwind CSS** | v3.4 - Utility-first Styling |
 
@@ -51,6 +51,9 @@ bipin-mevada-architects/
 │   ├── images/              # Project images (1.jpg, etc.)
 │   └── ...
 │
+├── pages/                  # Next.js Pages Router routes and app shell
+├── next.config.mjs
+├── vercel.json
 ├── src/
 │   ├── assets/              # Importable assets (logo, specific graphics)
 │   ├── components/
@@ -69,8 +72,6 @@ bipin-mevada-architects/
 │   │   ├── Portfolio.tsx    # Full Project Gallery
 │   │   └── ProjectDetail.tsx # Single Project View
 │   │
-│   ├── App.tsx              # Root with Routes
-│   ├── main.tsx             # Entry Point
 │   └── index.css            # Global Styles & Tailwind Config
 ```
 
@@ -78,7 +79,7 @@ bipin-mevada-architects/
 
 ## Pages & Routing
 
-The application uses `react-router-dom` for client-side routing.
+The application uses the Next.js Pages Router. Route entry files in `pages/` render the existing page components in `src/pages/`.
 
 1.  **Homepage (`/`)**:
     *   **Hero**: Full-screen visual with "Structure & Silence" branding.
