@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -74,7 +74,7 @@ const Portfolio = () => {
           </header>
 
           {/* Filters */}
-          <div className="flex flex-wrap gap-3 md:gap-4 mb-8 md:mb-12 pb-6 border-b border-border">
+          <div className="flex flex-wrap gap-3 md:gap-4 mb-8 md:mb-12 pb-6 border-b border-border font-serif font-medium">
             {filters.map((filter) => (
               <button
                 key={filter}

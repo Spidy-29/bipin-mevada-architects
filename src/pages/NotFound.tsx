@@ -1,10 +1,12 @@
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
-  const location = useLocation();
+  const router = useRouter();
+  const location = { pathname: router.asPath };
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
@@ -39,7 +41,7 @@ const NotFound = () => {
 
             {/* CTA */}
             <Button variant="architectural" asChild>
-              <Link to="/">Return Home</Link>
+              <Link href="/">Return Home</Link>
             </Button>
           </div>
         </div>

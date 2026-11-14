@@ -1,3 +1,73 @@
+@layer base {
+  .font-mackinac {
+    font-family: 'P22 Mackinac Pro', 'Product Sans', ui-sans-serif, system-ui, sans-serif;
+  }
+  
+  @font-face {
+    font-family: 'P22 Mackinac Pro';
+    src: url('/fonts/p22-mackinac/P22MackinacPro-Book_25.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'P22 Mackinac Pro';
+    src: url('/fonts/p22-mackinac/P22MackinacPro-Book_25.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'P22 Mackinac Pro';
+    src: url('/fonts/p22-mackinac/P22MackinacPro-BookItalic_15.otf') format('opentype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'P22 Mackinac Pro';
+    src: url('/fonts/p22-mackinac/P22MackinacPro-BookItalic_15.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'P22 Mackinac Pro';
+    src: url('/fonts/p22-mackinac/P22MackinacPro-Medium_26.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'P22 Mackinac Pro';
+    src: url('/fonts/p22-mackinac/P22MackinacPro-Bold_16.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'P22 Mackinac Pro';
+    src: url('/fonts/p22-mackinac/P22MackinacPro-BoldItalic_11.otf') format('opentype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'P22 Mackinac Pro';
+    src: url('/fonts/p22-mackinac/P22MackinacPro-Book_25.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -51,8 +121,8 @@
     --accent-gold-hsl: 39.444 48.214% 56.078%;
 
     /* Typography */
-    --font-sans: 'Product Sans', system-ui, -apple-system, sans-serif;
-    --font-serif: 'Product Sans', system-ui, -apple-system, sans-serif;
+    --font-sans: 'P22 Mackinac Pro', 'Product Sans', system-ui, -apple-system, sans-serif;
+    --font-serif: 'P22 Mackinac Pro', 'Product Sans', system-ui, -apple-system, sans-serif;
 
     /* Type scale */
     --type-display: 3.5rem;

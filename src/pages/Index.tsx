@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
@@ -79,10 +79,10 @@ const Index = () => {
 
               <div className="flex flex-wrap gap-4 opacity-0 animate-fade-up delay-300">
                 <Button variant="architectural" asChild>
-                  <Link to="/portfolio">View Portfolio</Link>
+                  <Link href="/portfolio" className="font-medium text-sm uppercase tracking-widest font-serif">View Portfolio</Link>
                 </Button>
                 <Button variant="minimal" asChild>
-                  <Link to="/about">Get in Touch</Link>
+                  <Link href="/about" className="font-medium text-sm uppercase tracking-widest font-serif">Get in Touch</Link>
                 </Button>
               </div>
             </div>
@@ -102,7 +102,7 @@ const Index = () => {
                   <h2 className="font-serif text-h2">Selected Projects</h2>
                 </div>
                 <Link
-                  to="/projects"
+                  href="/projects"
                   onClick={() => window.scrollTo(0, 0)}
                   className="group flex items-center gap-2 text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
                 >
@@ -141,7 +141,7 @@ const Index = () => {
                     return (
                       <Link
                         key={projectId}
-                        to={`/project/${projectId}`}
+                        href={`/project/${projectId}`}
                         onClick={() => window.scrollTo(0, 0)}
                         className="group block opacity-0 animate-fade-up"
                         style={{ animationDelay: `${index * 100}ms`, animationFillMode: "forwards" }}
@@ -190,7 +190,7 @@ const Index = () => {
                 <h2 className="font-serif text-h2">Visual Stories</h2>
               </div>
               <Link
-                to="/portfolio"
+                href="/portfolio"
                 onClick={() => window.scrollTo(0, 0)}
                 className="group flex items-center gap-2 text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
               >
@@ -213,7 +213,7 @@ const Index = () => {
                   return (
                     <Link
                       key={itemId}
-                      to="/portfolio"
+                      href="/portfolio"
                       onClick={() => window.scrollTo(0, 0)}
                       className="opacity-0 animate-fade-up"
                       style={{ animationDelay: `${index * 100}ms`, animationFillMode: "forwards" }}
@@ -261,7 +261,7 @@ const Index = () => {
                   We specialise in residential architecture, from budget-friendly homes to luxurious bungalows, creating beautiful and functional spaces tailored to our clients’ needs. Every plot has a story, and we’re here to help design it right.
                 </p>
                 <Button variant="architectural" asChild>
-                  <Link to="/about">Learn More</Link>
+                  <Link href="/about">Learn More</Link>
                 </Button>
               </div>
             </div>
@@ -293,7 +293,7 @@ const Index = () => {
               <p className="text-body-lg">Please connect them with us. Every plot has a story, and we’re here to help design it right.</p>
             </div>
             <Link
-              to="/about"
+              href="/about"
               className="inline-flex shrink-0 items-center justify-center border border-brand-contrast px-6 py-3 text-sm font-medium uppercase tracking-wide text-brand-contrast transition-colors hover:bg-brand-contrast hover:text-brand"
             >
               Connect with us

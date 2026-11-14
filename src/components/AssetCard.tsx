@@ -1,7 +1,7 @@
 import { ExternalLink } from 'lucide-react';
 import { AssetDisplay } from './AssetDisplay';
 import { Asset } from '@/types/cms';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 interface AssetCardProps {
     asset: Asset;
@@ -39,7 +39,7 @@ export const AssetCard = ({ asset, index, onClick, priority = false }: AssetCard
                         {/* Show View Project button if asset belongs to a project */}
                         {asset.project_id && (
                             <Link
-                                to={`/project/${asset.project_id}`}
+                                href={`/project/${asset.project_id}`}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                 }}

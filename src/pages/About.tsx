@@ -39,18 +39,39 @@ const About = () => {
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    logAnalyticsEvent('generate_lead', {
-      event_category: 'contact',
-      event_label: 'contact_form'
-    });
-    toast({
-      title: "Message sent!",
-      description: "Thank you for reaching out. We'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    try {
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+      if (!accessKey || accessKey === "your_web3forms_access_key") {
+        throw new Error("Configure a Web3Forms access key for bipin@bmdesignstudio.in");
+      }
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Business enquiry: ${formData.subject}`,
+          from_name: "BM Design Studio Website",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Could not send enquiry");
+      logAnalyticsEvent("generate_lead", { form_name: "business_enquiry", form_destination: "web3forms" });
+      toast({ title: "Message sent!", description: "Thank you for reaching out. We'll get back to you soon." });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Business enquiry submission failed", error);
+      toast({ title: "Message not sent", description: "Please try again or email bipin@bmdesignstudio.in." });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -88,7 +109,7 @@ const About = () => {
 
               <div className="relative">
                 <img
-                  src={heroImage}
+                  src={heroImage.src}
                   alt="Our studio"
                   className="w-full aspect-[4/5] object-cover"
                 />
@@ -130,7 +151,7 @@ const About = () => {
         {/* Image Break */}
         <section className="relative h-[40vh] md:h-[50vh] overflow-hidden">
           <img
-            src={projectLiving}
+            src={projectLiving.src}
             alt="Our work"
             className="w-full h-full object-cover"
           />
@@ -144,7 +165,7 @@ const About = () => {
               <span className="text-overline uppercase text-muted-foreground block mb-3">
                 Get In Touch
               </span>
-              <h2 className="font-serif text-h2">
+              <h2 className="font-serif text-h2 font-medium">
                 Let's create together
               </h2>
             </div>
@@ -166,8 +187,8 @@ const About = () => {
                     <CONTACT_INFO.email.icon size={18} className="text-muted-foreground group-hover:text-background transition-colors" />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{CONTACT_INFO.email.label}</p>
-                    <p className="group-hover:text-muted-foreground transition-colors">{CONTACT_INFO.email.value}</p>
+                    <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold mb-1">{CONTACT_INFO.email.label}</p>
+                    <p className="text-xs font-medium font-serif">{CONTACT_INFO.email.value}</p>
                   </div>
                 </a>
 
@@ -181,8 +202,8 @@ const About = () => {
                     <CONTACT_INFO.emailSecondary.icon size={18} className="text-muted-foreground group-hover:text-background transition-colors" />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{CONTACT_INFO.emailSecondary.label}</p>
-                    <p className="group-hover:text-muted-foreground transition-colors">{CONTACT_INFO.emailSecondary.value}</p>
+                    <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold mb-1">{CONTACT_INFO.emailSecondary.label}</p>
+                    <p className="text-xs font-medium font-serif">{CONTACT_INFO.emailSecondary.value}</p>
                   </div>
                 </a>
 
@@ -192,14 +213,14 @@ const About = () => {
                     <CONTACT_INFO.location.icon size={18} className="text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{CONTACT_INFO.location.label}</p>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{CONTACT_INFO.location.value}</p>
+                    <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold mb-1">{CONTACT_INFO.location.label}</p>
+                    <p className="text-xs font-medium font-serif">{CONTACT_INFO.location.value}</p>
                   </div>
                 </div>
 
                 {/* Social Links */}
                 <div className="pt-4">
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-4">
                     Follow & Connect
                   </p>
                   <div className="space-y-3">
@@ -236,12 +257,13 @@ const About = () => {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-xs uppercase tracking-widest text-muted-foreground">
+                      <label htmlFor="name" className="text-xs uppercase tracking-widest text-muted-foreground font-bold">
                         Name
                       </label>
                       <input
                         type="text"
                         id="name"
+                        name="name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full bg-transparent border-b border-border focus:border-foreground outline-none py-2 text-sm transition-colors"
@@ -250,12 +272,13 @@ const About = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="email" className="text-xs uppercase tracking-widest text-muted-foreground">
+                      <label htmlFor="email" className="text-xs uppercase tracking-widest text-muted-foreground font-bold">
                         Email
                       </label>
                       <input
                         type="email"
                         id="email"
+                        name="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-transparent border-b border-border focus:border-foreground outline-none py-2 text-sm transition-colors"
@@ -266,26 +289,28 @@ const About = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="subject" className="text-xs uppercase tracking-widest text-muted-foreground">
+                    <label htmlFor="subject" className="text-xs uppercase tracking-widest text-muted-foreground font-bold">
                       Subject
                     </label>
                     <input
                       type="text"
                       id="subject"
+                      name="subject"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       className="w-full bg-transparent border-b border-border focus:border-foreground outline-none py-2 text-sm transition-colors"
                       placeholder="Project inquiry"
                       required
                     />
-                  </div>
+                  </div>  
 
                   <div className="space-y-2">
-                    <label htmlFor="message" className="text-xs uppercase tracking-widest text-muted-foreground">
+                    <label htmlFor="message" className="text-xs uppercase tracking-widest text-muted-foreground font-bold">
                       Message
                     </label>
                     <textarea
                       id="message"
+                      name="message"
                       rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -295,9 +320,9 @@ const About = () => {
                     />
                   </div>
 
-                  <Button type="submit" variant="architectural" className="w-full mt-4">
+                  <Button type="submit" variant="architectural" className="w-full mt-4 font-bold" disabled={isSubmitting}>
                     <Send size={16} />
-                    Send Message
+                    {isSubmitting ? "Sending…" : "Send Message"}
                   </Button>
                 </form>
               </div>

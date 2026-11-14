@@ -18,8 +18,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        serif: ["Product Sans", "system-ui", "-apple-system", "sans-serif"],
-        sans: ["Product Sans", "system-ui", "-apple-system", "sans-serif"],
+        serif: ["P22 Mackinac Pro", "Product Sans", "system-ui", "-apple-system", "sans-serif"],
+        sans: ["P22 Mackinac Pro", "Product Sans", "system-ui", "-apple-system", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

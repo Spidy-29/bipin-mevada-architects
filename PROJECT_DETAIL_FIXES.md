@@ -131,7 +131,7 @@ useEffect(() => {
 
 ### Dependencies:
 - `react` (useEffect)
-- `react-router-dom` (useParams, Link)
+- `next/router` and `next/link`
 - Existing hooks: `useProjects`, `useProjectAssets`
 
 ---

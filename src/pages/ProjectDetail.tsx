@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
@@ -12,7 +13,8 @@ import { Asset } from "@/types/cms";
 import { logAnalyticsEvent } from "@/lib/firebase";
 
 const ProjectDetail = () => {
-  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
+  const id = router.query.id as string | undefined;
   const { data: projects, isLoading: isLoadingProject } = useProjects();
   const { data: projectAssets, isLoading: isLoadingAssets } = useProjectAssets(id || "");
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
@@ -52,7 +54,7 @@ const ProjectDetail = () => {
         <Header />
         <div className="flex-1 flex flex-col items-center justify-center pt-24">
           <h1 className="font-serif text-h1 mb-4">Project Not Found</h1>
-          <Button asChild><Link to="/portfolio">Back to Portfolio</Link></Button>
+          <Button asChild><Link href="/portfolio">Back to Portfolio</Link></Button>
         </div>
         <Footer />
       </div>
@@ -191,7 +193,7 @@ const ProjectDetail = () => {
             <div className="flex justify-between items-center">
               {prevProject ? (
                 <Link
-                  to={`/project/${prevProject.project_id}`}
+                  href={`/project/${prevProject.project_id}`}
                   className="group flex flex-col gap-1 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <div className="flex items-center gap-2">
@@ -207,12 +209,12 @@ const ProjectDetail = () => {
               )}
 
               <Button variant="minimal" asChild>
-                <Link to="/projects" onClick={() => window.scrollTo(0, 0)}>All Projects</Link>
+                <Link href="/projects" onClick={() => window.scrollTo(0, 0)}>All Projects</Link>
               </Button>
 
               {nextProject ? (
                 <Link
-                  to={`/project/${nextProject.project_id}`}
+                  href={`/project/${nextProject.project_id}`}
                   className="group flex flex-col gap-1 text-muted-foreground hover:text-foreground transition-colors text-right"
                 >
                   <div className="flex items-center gap-2 justify-end">

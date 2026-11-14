@@ -1,10 +1,10 @@
 
 // Validate environment variables
-const API_URL = import.meta.env.VITE_GOOGLE_SHEET_API_URL;
-const API_KEY = import.meta.env.VITE_GOOGLE_SHEET_API_KEY;
+const API_URL = process.env.NEXT_PUBLIC_GOOGLE_SHEET_API_URL;
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_SHEET_API_KEY;
 
 if (!API_URL || !API_KEY) {
-  console.warn('Please ensure .env file exists with VITE_GOOGLE_SHEET_API_URL and VITE_GOOGLE_SHEET_API_KEY');
+  console.warn('Please ensure .env file exists with NEXT_PUBLIC_GOOGLE_SHEET_API_URL and NEXT_PUBLIC_GOOGLE_SHEET_API_KEY');
   console.warn('⚠️ IMPORTANT: Restart your dev server after creating/updating .env file!');
 }
 

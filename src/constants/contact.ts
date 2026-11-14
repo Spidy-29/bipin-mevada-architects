@@ -18,23 +18,23 @@ export interface ContactInfo {
 
 // Social Media Links
 export const SOCIAL_LINKS: SocialLink[] = [
-  { 
-    icon: MessageCircle, 
-    href: "https://wa.me/919825346592", 
-    label: "WhatsApp", 
-    value: "+91 98253-46592" 
+  {
+    icon: MessageCircle,
+    href: "https://wa.me/919825346592",
+    label: "WhatsApp",
+    value: "+91 98253-46592",
   },
-  { 
-    icon: Instagram, 
-    href: "https://instagram.com/bipin_mevada_architects/", 
-    label: "Instagram", 
-    value: "@bipinmevada" 
+  {
+    icon: Instagram,
+    href: "https://instagram.com/bipin_mevada_architects/",
+    label: "Instagram",
+    value: "@bipin_mevada_architects",
   },
-  // { 
-  //   icon: Facebook, 
-  //   href: "https://facebook.com", 
-  //   label: "Facebook", 
-  //   value: "Bipin Mevada Architects" 
+  // {
+  //   icon: Facebook,
+  //   href: "https://facebook.com",
+  //   label: "Facebook",
+  //   value: "Bipin Mevada Architects"
   // },
 ];
 
@@ -58,7 +58,7 @@ export const CONTACT_INFO = {
     type: "location" as const,
     icon: MapPin,
     label: "Studio",
-    value: "508, MOUNT BIZPARK, Vaishnodevi Circle, Sardar Patel Ring Rd, near Malabar Exotica, opp. Dwarkesh Opulence, Tragad, Gujarat 382470",
+    value: "508, MOUNT BIZPARK, Vaishnodevi Circle, Sardar Patel Ring Rd, Tragad, Gujarat 382470",
   },
 };
 
