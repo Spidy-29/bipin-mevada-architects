@@ -203,7 +203,6 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ isOpen, onClose, asset }) => 
             // Try the next variation if available
             if (retryCount < variations.length - 1) {
                 const nextUrl = variations[retryCount + 1];
-                console.log(`Retrying with URL format ${retryCount + 1}:`, nextUrl);
                 setCurrentSrc(nextUrl);
                 setRetryCount(retryCount + 1);
                 return;

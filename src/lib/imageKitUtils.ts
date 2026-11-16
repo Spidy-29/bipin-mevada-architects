@@ -97,7 +97,6 @@ export const transformImageKitUrl = (
 
     return urlObj.toString();
   } catch (error) {
-    console.warn('Error transforming ImageKit URL:', error);
     return url;
   }
 };

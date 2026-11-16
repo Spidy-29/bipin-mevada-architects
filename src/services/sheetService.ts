@@ -30,7 +30,6 @@ const fetchFromApi = async (): Promise<ApiResponse> => {
       return data;
     })
     .catch((error) => {
-      console.error('API Fetch Error:', error);
       cachePromise = null; // Reset promise on error so we can try again
       throw error;
     });
@@ -58,7 +57,6 @@ export const fetchAssets = async (): Promise<Asset[]> => {
       };
     });
   } catch (error) {
-    console.error('Error fetching assets:', error);
     return [];
   }
 };
@@ -68,7 +66,6 @@ export const fetchProjects = async (): Promise<Project[]> => {
     const data = await fetchFromApi();
     return data.projects || [];
   } catch (error) {
-    console.error('Error fetching projects:', error);
     return [];
   }
 };

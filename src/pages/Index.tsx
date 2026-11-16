@@ -244,7 +244,7 @@ const Index = () => {
                   We specialise in residential architecture, from budget-friendly homes to luxurious bungalows, creating beautiful and functional spaces tailored to our clients’ needs. Every plot has a story, and we’re here to help design it right.
                 </p>
                 <Button variant="architectural" asChild>
-                  <Link href="/about">Learn More</Link>
+                  <Link href="/about">Learn more about BM Design Studio</Link>
                 </Button>
               </div>
             </div>

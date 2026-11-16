@@ -17,11 +17,6 @@ const missingVars = Object.entries(firebaseEnvVars)
   .filter(([_, value]) => !value)
   .map(([key]) => key);
 
-if (missingVars.length > 0) {
-  console.warn('⚠️ Missing Firebase environment variables:', missingVars);
-  console.warn('Please ensure .env file exists with all NEXT_PUBLIC_FIREBASE_* variables');
-}
-
 const firebaseConfig = {
   apiKey: firebaseEnvVars.apiKey || '',
   authDomain: firebaseEnvVars.authDomain || '',
@@ -34,7 +29,6 @@ const firebaseConfig = {
 
 // Validate critical Firebase config before initialization
 if (!firebaseConfig.projectId) {
-  console.error('❌ Firebase projectId is missing. Firebase will not be initialized.');
   throw new Error('Firebase configuration is incomplete. Missing projectId.');
 }
 

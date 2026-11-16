@@ -9,7 +9,7 @@ import { AssetDisplay } from "@/components/AssetDisplay";
 
 
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 20;
 
 const Projects = () => {
     const [activeFilter, setActiveFilter] = useState<string>("All");
@@ -109,6 +109,7 @@ const Projects = () => {
                                                         aspectRatio="4/3"
                                                         className="transition-transform duration-700 group-hover:scale-105"
                                                         showTypeIcon={false}
+                                                        priority={index === 0 && currentPage === 1 && activeFilter === "All"}
                                                     />
 
                                                     {/* Overlay container */}
@@ -120,9 +121,9 @@ const Projects = () => {
                                                             <span className="text-xs uppercase tracking-widest text-background">
                                                                 {project.property_type}
                                                             </span>
-                                                            <h3 className="font-serif text-h3 text-background">
+                                                            <h2 className="font-serif text-h3 text-background">
                                                                 {project.project_title}
-                                                            </h3>
+                                                            </h2>
                                                         </div>
                                                     </div>
                                                 </div>

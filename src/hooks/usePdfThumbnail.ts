@@ -65,7 +65,6 @@ export const usePdfThumbnail = (url: string | undefined) => {
                 setThumbnailUrl(dataUrl);
 
             } catch (err: any) {
-                console.warn('Error generating PDF thumbnail:', err);
                 setError(err);
                 
                 // Fallback for Google Drive URLs: try the thumbnail endpoint

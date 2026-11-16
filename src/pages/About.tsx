@@ -67,7 +67,6 @@ const About = () => {
       toast({ title: "Message sent!", description: "Thank you for reaching out. We'll get back to you soon." });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
-      console.error("Business enquiry submission failed", error);
       toast({ title: "Message not sent", description: "Please try again or email bipin@bmdesignstudio.in." });
     } finally {
       setIsSubmitting(false);

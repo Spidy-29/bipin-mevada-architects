@@ -1,17 +1,8 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
-  const router = useRouter();
-  const location = { pathname: router.asPath };
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
-
   return (
     <div className="min-h-screen bg-background">
       <Header />

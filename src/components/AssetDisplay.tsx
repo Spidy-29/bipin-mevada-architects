@@ -13,6 +13,7 @@ interface AssetDisplayProps {
     showOverlay?: boolean;
     showTypeIcon?: boolean;
     loading?: "lazy" | "eager";
+    priority?: boolean;
     children?: ReactNode;
 }
 
@@ -32,6 +33,7 @@ export const AssetDisplay = ({
     showOverlay = true,
     showTypeIcon = true,
     loading = "lazy",
+    priority = false,
     children,
 }: AssetDisplayProps) => {
     // Helper to check file type from URL extension
@@ -64,6 +66,7 @@ export const AssetDisplay = ({
                 className="transition-transform duration-700 group-hover:scale-105"
                 assetType={effectiveType as any}
                 loading={loading}
+                priority={priority}
             />
 
             {/* Overlay and Icons */}

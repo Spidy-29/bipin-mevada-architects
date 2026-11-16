@@ -12,6 +12,7 @@ interface OptimizedImageProps {
     loading?: 'lazy' | 'eager';
     onError?: () => void;
     assetType?: 'image' | 'video' | 'pdf' | 'other';
+    priority?: boolean;
 }
 
 const aspectRatioClasses = {
@@ -28,7 +29,8 @@ export const OptimizedImage = ({
     aspectRatio,
     loading = 'lazy',
     onError,
-    assetType = 'image'
+    assetType = 'image',
+    priority = false,
 }: OptimizedImageProps) => {
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
@@ -114,7 +116,6 @@ export const OptimizedImage = ({
             // Try the next variation if available
             if (retryCount < variations.length - 1) {
                 const nextUrl = variations[retryCount + 1];
-                console.log(`Retrying with URL format ${retryCount + 1}:`, nextUrl);
                 setCurrentSrc(nextUrl);
                 setRetryCount(retryCount + 1);
                 return;
@@ -193,7 +194,8 @@ export const OptimizedImage = ({
                         : undefined}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     alt={alt}
-                    loading={loading}
+                    loading={priority ? 'eager' : loading}
+                    fetchPriority={priority ? 'high' : 'auto'}
                     onLoad={handleLoad}
                     onError={handleError}
                     className={cn(

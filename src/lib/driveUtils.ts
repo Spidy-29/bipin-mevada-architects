@@ -51,7 +51,6 @@ export const convertToDirectViewUrl = (url: string | undefined): string => {
   // Extract file ID
   const fileId = extractDriveFileId(url);
   if (!fileId) {
-    console.warn('Could not extract file ID from Drive URL:', url);
     return url;
   }
 
@@ -83,7 +82,6 @@ export const convertToThumbnailUrl = (url: string | undefined, size: number = 20
   // Extract file ID
   const fileId = extractDriveFileId(url);
   if (!fileId) {
-    console.warn('Could not extract file ID from Drive URL:', url);
     return url;
   }
 
@@ -114,7 +112,6 @@ export const convertToDownloadUrl = (url: string | undefined): string => {
   // Extract file ID
   const fileId = extractDriveFileId(url);
   if (!fileId) {
-    console.warn('Could not extract file ID from Drive URL:', url);
     return url;
   }
 
@@ -145,7 +142,6 @@ export const convertToPreviewUrl = (url: string | undefined): string => {
   // Extract file ID
   const fileId = extractDriveFileId(url);
   if (!fileId) {
-    console.warn('Could not extract file ID from Drive URL:', url);
     return url;
   }
 

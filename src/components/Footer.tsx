@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-10 md:gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" className="inline-flex items-center gap-3 text-foreground" aria-label="BM Design Studio home">
+            <Link href="/" className="inline-flex items-center gap-3 text-foreground">
               <img
                 src="/images/logo-assets/favicons/apple-touch-icon.png"
                 alt=""
@@ -72,6 +72,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 group"
+                  aria-label={social.label}
                 >
                   <div className="w-10 h-10 flex items-center justify-center border border-border group-hover:border-foreground group-hover:bg-foreground transition-all duration-300">
                     <social.icon size={16} className="text-muted-foreground group-hover:text-background transition-colors" />
